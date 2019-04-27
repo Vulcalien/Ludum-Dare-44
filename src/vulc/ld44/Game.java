@@ -24,10 +24,10 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	//the size of the game screen (not the JFrame)
-	public static final int WIDTH = 160, HEIGHT = 160;
+	public static final int WIDTH = 176, HEIGHT = 176;
 
 	//the number of JFrame's pixels that correspond to 1 pixel of the game screen
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 
 	//Tile size: the number of pixels of a tile is 2^T_SIZE
 	public static final int T_SIZE = 4;

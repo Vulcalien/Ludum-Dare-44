@@ -15,17 +15,20 @@ public class Level {
 
 	public final int width, height;
 	public final byte[] tiles;
+	public final byte[] data;
 	public final boolean[] lightInTiles;
 	public final List<Entity> entities = new ArrayList<Entity>();
 	public final List<Entity>[] entitiesInTile;
 
 	public Player player;
+	public int remainingEnemies = 0;
 
 	@SuppressWarnings("unchecked")
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.tiles = new byte[width * height];
+		this.data = new byte[width * height];
 		this.lightInTiles = new boolean[width * height];
 		this.entitiesInTile = new ArrayList[width * height];
 		for(int i = 0; i < entitiesInTile.length; i++) {
@@ -87,12 +90,23 @@ public class Level {
 
 	public void setTile(Tile tile, int xt, int yt) {
 		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return;
+		tile.init(this, xt, yt);
 		tiles[xt + yt * width] = tile.id;
 	}
 
 	public Tile getTile(int xt, int yt) {
 		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return null;
 		return Tile.TILES[tiles[xt + yt * width]];
+	}
+
+	public void setData(byte data, int xt, int yt) {
+		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return;
+		this.data[xt + yt * width] = data;
+	}
+
+	public byte getData(int xt, int yt) {
+		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return 0;
+		return this.data[xt + yt * width];
 	}
 
 	public void addEntity(Entity e) {

@@ -160,7 +160,8 @@ public class Entity {
 		return !(x - xr > x1 || x + xr - 1 < x0 || y - yr > y1 || y + yr - 1 < y0);
 	}
 
-	public void interactOn(Player player, Item item) {
+	public boolean interactOn(Player player, Item item) {
+		return false;
 	}
 
 }

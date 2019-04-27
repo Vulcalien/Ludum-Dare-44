@@ -15,6 +15,7 @@ public abstract class Debug {
 		game.level.setTile(Tile.WALL, 8, 8);
 		game.level.setTile(Tile.WALL, 9, 8);
 		game.level.setTile(Tile.WALL, 8, 9);
+		game.level.setTile(Tile.DOOR, 5, 9);
 
 		game.player = new Player(1, 1);
 		game.level.addEntity(game.player);
