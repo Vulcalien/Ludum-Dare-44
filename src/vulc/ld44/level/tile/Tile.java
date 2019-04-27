@@ -11,6 +11,12 @@ public class Tile {
 
 	public static final Tile[] TILES = new Tile[128];
 
+	public static final Tile
+	FLOOR = new FloorTile(0),
+	WALL = new WallTile(1);
+
+	public static int tickCount = 0;
+
 	public final byte id;
 
 	public Tile(int id) {
@@ -21,11 +27,18 @@ public class Tile {
 		TILES[id] = this;
 	}
 
-	public void render(Screen screen, int xt, int yt) {
+	public void render(Screen screen, Level level, int xt, int yt) {
 	}
 
 	public boolean mayPass(Entity e, int xm, int ym, Level level, int xt, int yt) {
 		return true;
+	}
+
+	public boolean mayPassLight(Level level, int xt, int yt) {
+		return true;
+	}
+
+	public static void init() {
 	}
 
 }

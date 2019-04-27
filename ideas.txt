@@ -1,2 +1,17 @@
 Ludum Dare 44.
-Theme: 
+Theme: Your life is currency
+
+Dungeon Game
+- Made of rooms
+  - rooms are dark until you open the door
+- You have to fight
+
+
+Vampire shop keeper
+- sells items like better weapons, armor, gloves...
+- items' cost is your HPs
+
+
+You have Quests
+- You may have to solve a puzzle, or get enought mob drops, or clear the room...
+- Quests give you HPs

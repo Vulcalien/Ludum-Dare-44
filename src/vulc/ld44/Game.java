@@ -9,29 +9,37 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
+import vulc.ld44.gfx.menu.Menu;
 import vulc.ld44.input.InputHandler;
+import vulc.ld44.input.KeyBinding;
 import vulc.ld44.level.Level;
+import vulc.ld44.level.entity.Player;
+import vulc.ld44.level.tile.Tile;
+import vulc.ld44.sfx.Sound;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
 	//the size of the game screen (not the JFrame)
-	public static final int WIDTH = 320, HEIGHT = 320;
+	public static final int WIDTH = 160, HEIGHT = 160;
 
 	//the number of JFrame's pixels that correspond to 1 pixel of the game screen
-	public static final int SCALE = 1;
+	public static final int SCALE = 2;
 
 	//Tile size: the number of pixels of a tile is 2^T_SIZE
-	public static final int T_SIZE = 5;
+	public static final int T_SIZE = 4;
 
 	private final BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private final int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 	private final Screen screen = new Screen(this);
 
+	public Player player;
 	public Level level;
+	public Menu menu;
 
 	private Thread thread;
 	private boolean running = false;
@@ -57,10 +65,25 @@ public class Game extends Canvas implements Runnable {
 
 	private void init() {
 		InputHandler.init(this);
+		Atlas.init();
+		Sound.init();
+		Tile.init();
+		KeyBinding.init();
+
+		Debug.init(this);
 	}
 
 	private void tick() {
-		if(level != null) level.tick();
+		boolean levelShouldTick = true;
+		if(menu != null) {
+			menu.tick();
+			levelShouldTick = !menu.blocksLevelTick();
+		}
+		if(levelShouldTick && level != null) level.tick();
+
+		Tile.tickCount++;
+
+		Debug.tick();
 
 		//must tick the last
 		InputHandler.tick();

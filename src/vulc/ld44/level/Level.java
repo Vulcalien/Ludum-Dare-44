@@ -6,6 +6,7 @@ import java.util.List;
 import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.level.entity.Entity;
+import vulc.ld44.level.entity.Player;
 import vulc.ld44.level.tile.Tile;
 
 public class Level {
@@ -14,14 +15,18 @@ public class Level {
 
 	public final int width, height;
 	public final byte[] tiles;
+	public final boolean[] lightInTiles;
 	public final List<Entity> entities = new ArrayList<Entity>();
 	public final List<Entity>[] entitiesInTile;
+
+	public Player player;
 
 	@SuppressWarnings("unchecked")
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.tiles = new byte[width * height];
+		this.lightInTiles = new boolean[width * height];
 		this.entitiesInTile = new ArrayList[width * height];
 		for(int i = 0; i < entitiesInTile.length; i++) {
 			entitiesInTile[i] = new ArrayList<Entity>();
@@ -54,7 +59,10 @@ public class Level {
 	}
 
 	public void render(Screen screen, int xTiles, int yTiles) {
-		//set screen's offset
+		if(player != null) {
+			screen.xOffset = player.x - (xTiles << T_SIZE) / 2;
+			screen.yOffset = player.y - (yTiles << T_SIZE) / 2;
+		}
 
 		int xt0 = (screen.xOffset) >> T_SIZE;
 		int yt0 = (screen.yOffset) >> T_SIZE;
@@ -67,7 +75,7 @@ public class Level {
 			for(int xt = xt0; xt <= xt1; xt++) {
 				if(xt < 0 || xt >= width) continue;
 
-				getTile(xt, yt).render(screen, xt, yt);
+				getTile(xt, yt).render(screen, this, xt, yt);
 			}
 		}
 
@@ -92,12 +100,17 @@ public class Level {
 		insertEntityInTile(e, e.x >> T_SIZE, e.y >> T_SIZE);
 		e.removed = false;
 		e.level = this;
+		e.init();
+
+		if(e instanceof Player) player = (Player) e;
 	}
 
 	public void removeEntity(Entity e) {
 		entities.remove(e);
 		removeEntityFromTile(e, e.y >> T_SIZE, e.y >> T_SIZE);
 		e.removed = true;
+
+		if(e instanceof Player) player = null;
 	}
 
 	public void insertEntityInTile(Entity e, int xt, int yt) {
@@ -147,6 +160,48 @@ public class Level {
 			}
 		}
 		return result;
+	}
+
+	public boolean hasLight(int xt, int yt) {
+		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return false;
+		return lightInTiles[xt + yt * width];
+	}
+
+	public void setLight(boolean flag, int xt, int yt) {
+		if(xt < 0 || xt >= width || yt < 0 || yt >= height) return;
+		lightInTiles[xt + yt * width] = flag;
+	}
+
+	public void spreadLight(int xStart, int yStart) {
+		List<TileRef> checked = new ArrayList<TileRef>();
+		List<TileRef> toCheck = new ArrayList<TileRef>();
+
+		TileRef current = new TileRef(xStart, yStart);
+		toCheck.add(current);
+
+		while(!toCheck.isEmpty()) {
+			current = toCheck.get(0);
+			int xt = current.xt, yt = current.yt;
+
+			setLight(true, xt, yt);
+			if(getTile(xt, yt).mayPassLight(this, xt, yt)) {
+				for(int y = -1; y <= 1; y++) {
+					int yNeighbor = yt + y;
+					if(yNeighbor < 0 || yNeighbor >= height) continue;
+
+					for(int x = -1; x <= 1; x++) {
+						int xNeighbor = xt + x;
+						if(xNeighbor < 0 || xNeighbor >= width) continue;
+
+						TileRef neighbor = new TileRef(xNeighbor, yNeighbor);
+						if(!checked.contains(neighbor) && !toCheck.contains(neighbor)) toCheck.add(neighbor);
+					}
+				}
+			}
+
+			toCheck.remove(0);
+			checked.add(current);
+		}
 	}
 
 }

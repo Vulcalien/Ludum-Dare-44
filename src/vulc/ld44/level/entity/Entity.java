@@ -5,6 +5,7 @@ import java.util.List;
 
 import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
+import vulc.ld44.item.Item;
 import vulc.ld44.level.Level;
 import vulc.ld44.level.tile.Tile;
 
@@ -18,6 +19,9 @@ public class Entity {
 	public int x, y;
 	//xr is half of the width, yr = half of the height
 	public int xr, yr;
+
+	public void init() {
+	}
 
 	public void tick() {
 	}
@@ -154,6 +158,9 @@ public class Entity {
 
 	public boolean intersects(int x0, int y0, int x1, int y1) {
 		return !(x - xr > x1 || x + xr - 1 < x0 || y - yr > y1 || y + yr - 1 < y0);
+	}
+
+	public void interactOn(Player player, Item item) {
 	}
 
 }
