@@ -35,6 +35,12 @@ public class Player extends Living {
 	public void tick() {
 		tickCount++;
 
+		if(animation != null) {
+			animation.tick();
+			if(animation.ended) animation = null;
+			return;
+		}
+
 		int speed = 1;
 
 		int xm = 0, ym = 0;

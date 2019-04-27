@@ -1,9 +1,13 @@
 package vulc.ld44.level.entity;
 
+import vulc.ld44.level.entity.animation.Animation;
+
 public class Mob extends Entity {
 
 	public int moveCount = 0;
 	public int dir = 0;
+
+	public Animation animation;
 
 	public boolean[] move(int xm, int ym) {
 		if(xm != 0 || ym != 0) {

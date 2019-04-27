@@ -17,6 +17,7 @@ import vulc.ld44.input.KeyBinding;
 import vulc.ld44.level.Level;
 import vulc.ld44.level.LevelLoader;
 import vulc.ld44.level.entity.Player;
+import vulc.ld44.level.entity.animation.Animation;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
 
@@ -84,7 +85,9 @@ public class Game extends Canvas implements Runnable {
 			menu.tick();
 			levelShouldTick = !menu.blocksLevelTick();
 		}
-		if(levelShouldTick && level != null) level.tick();
+		if(levelShouldTick && level != null) {
+			level.tick();
+		}
 
 		Tile.tickCount++;
 
