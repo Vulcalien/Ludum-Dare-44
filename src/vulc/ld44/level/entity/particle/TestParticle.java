@@ -8,7 +8,7 @@ public class TestParticle extends Particle {
 	private final int w, h;
 
 	public TestParticle(int x, int y, int w, int h) {
-		super(40, x, y);
+		super(20, x, y);
 		this.w = w;
 		this.h = h;
 	}

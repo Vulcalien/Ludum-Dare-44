@@ -164,7 +164,7 @@ public class Game extends Canvas implements Runnable {
 		instance.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		instance.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
-		JFrame frame = new JFrame("game name");
+		JFrame frame = new JFrame("Ludum Dare 44 - Vulcalien's Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 

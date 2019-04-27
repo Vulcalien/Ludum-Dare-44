@@ -9,8 +9,10 @@ public class Sound {
 	public static enum Volume {ON, OFF}
 	public static Volume volume = Volume.ON;
 
-//	public static final Sound
-//	...
+	public static final Sound
+	ATTACK = new Sound("/sfx/attack.wav"),
+	OPEN_DOOR = new Sound("/sfx/open_door.wav"),
+	FOOTSTEP = new Sound("/sfx/footstep.wav");
 
 	private Clip clip;
 

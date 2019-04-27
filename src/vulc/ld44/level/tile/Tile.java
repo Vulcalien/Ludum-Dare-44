@@ -10,17 +10,16 @@ import vulc.ld44.level.entity.Player;
 public class Tile {
 
 	public static final int T_SIZE = Game.T_SIZE;
-
 	public static final Tile[] TILES = new Tile[128];
+	public static int tickCount = 0;
 
 	public static final Tile
 	FLOOR = new FloorTile(0),
 	WALL = new WallTile(1),
 	DOOR = new DoorTile(2);
 
-	public static int tickCount = 0;
-
 	public final byte id;
+	public boolean connectsToWall = false;
 
 	public Tile(int id) {
 		this.id = (byte) id;
@@ -38,6 +37,12 @@ public class Tile {
 	}
 
 	public void interactOn(Level level, int xt, int yt, Player player, Item item) {
+	}
+
+	public void onEnter(Level level, int xt, int yt, Entity e) {
+	}
+
+	public void onExit(Level level, int xt, int yt, Entity e) {
 	}
 
 	public boolean mayPass(Entity e, int xm, int ym, Level level, int xt, int yt) {

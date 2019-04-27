@@ -47,8 +47,8 @@ public class Screen extends Bitmap {
 	public void renderPlayerGui() {
 		Player player = game.player;
 
-		fill(160, 0, 176, 160, 0xff0000);
-		fill(0, 160, 176, 176, 0xff00ff);
+		fill(160, 0, 176, 160, 0x666666);
+		fill(0, 160, 176, 176, 0x666666);
 
 		//TODO render inventory
 	}

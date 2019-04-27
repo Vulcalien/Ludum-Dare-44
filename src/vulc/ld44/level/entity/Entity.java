@@ -32,12 +32,40 @@ public class Entity {
 	public boolean[] move(int xm, int ym) {
 		List<Entity> touchedEntities = new ArrayList<Entity>();
 
+		int xt0 = (x - xr) >> T_SIZE;
+		int yt0 = (y - yr) >> T_SIZE;
+		int xt1 = (x + xr - 1) >> T_SIZE;
+		int yt1 = (y + yr - 1) >> T_SIZE;
+
 		boolean xMoved = move2(xm, 0, touchedEntities);
 		boolean yMoved = move2(0, ym, touchedEntities);
 
 		for(int i = 0; i < touchedEntities.size(); i++) {
 			Entity e = touchedEntities.get(i);
 			e.touchedBy(this);
+		}
+
+		int xto0 = (x - xr) >> T_SIZE;
+		int yto0 = (y - yr) >> T_SIZE;
+		int xto1 = (x + xr - 1) >> T_SIZE;
+		int yto1 = (y + yr - 1) >> T_SIZE;
+
+		if(xm != 0 || ym != 0) {
+			for(int yt = yto0; yt <= yto1; yt++) {
+				for(int xt = xto0; xt <= xto1; xt++) {
+					if(xt < xt0 || xt > xt1 || yt < yt0 || yt > yt1) {
+						level.getTile(xt, yt).onEnter(level, xt, yt, this);
+					}
+				}
+			}
+
+			for(int yt = yt0; yt <= yt1; yt++) {
+				for(int xt = xt0; xt <= xt1; xt++) {
+					if(xt < xto0 || xt > xto1 || yt < yto0 || yt > yto1) {
+						level.getTile(xt, yt).onExit(level, xt, yt, this);
+					}
+				}
+			}
 		}
 
 		return new boolean[] {xMoved, yMoved};
@@ -162,6 +190,9 @@ public class Entity {
 
 	public boolean interactOn(Player player, Item item) {
 		return false;
+	}
+
+	public void attack(int dmg, Entity attacker, Item item) {
 	}
 
 }

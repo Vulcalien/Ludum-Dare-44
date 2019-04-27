@@ -1,6 +1,7 @@
 package vulc.ld44.level;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import vulc.ld44.Game;
@@ -23,6 +24,14 @@ public class Level {
 	public int xSpawn, ySpawn;
 	public Player player;
 	public int remainingEnemies = 0;
+
+	private final Comparator<Entity> sorter = new Comparator<Entity>() {
+		public int compare(Entity e0, Entity e1) {
+			if(e0.y > e1.y) return +1;
+			if(e0.y < e1.y) return -1;
+			return 0;
+		}
+	};
 
 	@SuppressWarnings("unchecked")
 	public Level(int width, int height) {
@@ -84,6 +93,7 @@ public class Level {
 		}
 
 		List<Entity> entities = getEntitiesInTile(xt0 - 1, yt0 - 1, xt1 + 1, yt1 + 1);
+		entities.sort(sorter);
 		for(int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(screen);
 		}
@@ -208,6 +218,8 @@ public class Level {
 						int xNeighbor = xt + x;
 						if(xNeighbor < 0 || xNeighbor >= width) continue;
 
+						if(hasLight(xNeighbor, yNeighbor)) continue;
+
 						TileRef neighbor = new TileRef(xNeighbor, yNeighbor);
 						if(!checked.contains(neighbor) && !toCheck.contains(neighbor)) toCheck.add(neighbor);
 					}
@@ -216,6 +228,12 @@ public class Level {
 
 			toCheck.remove(0);
 			checked.add(current);
+		}
+	}
+
+	public void clearLight() {
+		for(int i = 0; i < lightInTiles.length; i++) {
+			lightInTiles[i] = false;
 		}
 	}
 

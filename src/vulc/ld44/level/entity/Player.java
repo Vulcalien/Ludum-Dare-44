@@ -10,6 +10,7 @@ import vulc.ld44.item.Inventory;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.entity.particle.TestParticle;
 import vulc.ld44.level.tile.Tile;
+import vulc.ld44.sfx.Sound;
 
 public class Player extends Living {
 
@@ -53,6 +54,12 @@ public class Player extends Living {
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
 	}
 
+	public boolean[] move(int xm, int ym) {
+		boolean[] result = super.move(xm, ym);
+		if(moveCount % 10 == 0) Sound.FOOTSTEP.play();
+		return result;
+	}
+
 	public void interact() {
 		if(handheld != null && !handheld.mayInteract()) return;
 
@@ -94,8 +101,37 @@ public class Player extends Living {
 	}
 
 	public void attack() {
-		//TODO delay
+		if(handheld != null && !handheld.mayAttack()) return;
+
+		if(tickCount - lastAttack < 30) return;
 		lastAttack = tickCount;
+
+		int yo = 1;
+
+		if(dir == 0) attackEntities(x - 8, y - 12 + yo, x + 8, y - 4 + yo);
+		else if(dir == 1) attackEntities(x - 12, y - 8 + yo, x - 4, y + 8 + yo);
+		else if(dir == 2) attackEntities(x - 8, y + 4 + yo, x + 8, y + 12 + yo);
+		else if(dir == 3) attackEntities(x + 4, y - 8 + yo, x + 12, y + 8 + yo);
+
+		Sound.ATTACK.play();
+	}
+
+	public void attackEntities(int x0, int y0, int x1, int y1) {
+		level.addEntity(new TestParticle(x0, y0, x1 - x0, y1 - y0));
+
+		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
+		for(int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			e.attack(getDamage(), this, handheld);
+		}
+	}
+
+	public int getDamage() {
+		int dmg = 1;
+		if(handheld != null) {
+			dmg += handheld.getDamageBonus();
+		}
+		return dmg;
 	}
 
 }

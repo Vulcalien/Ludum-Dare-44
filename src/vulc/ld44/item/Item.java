@@ -17,4 +17,8 @@ public class Item {
 		return true;
 	}
 
+	public int getDamageBonus() {
+		return 0;
+	}
+
 }
