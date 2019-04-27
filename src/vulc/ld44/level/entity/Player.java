@@ -17,7 +17,6 @@ public class Player extends Living {
 	public final Item handheld = null;
 
 	public int tickCount = 0;
-	public int lastInteract = 0;
 	public int lastAttack = 0;
 
 	public Player(int xt, int yt) {
@@ -45,7 +44,7 @@ public class Player extends Living {
 
 		move(xm, ym);
 
-		if(KeyBinding.INTERACT.isKeyDown()) interact();
+		if(KeyBinding.INTERACT.isPressed()) interact();
 		if(KeyBinding.ATTACK.isKeyDown()) attack();
 	}
 
@@ -58,9 +57,6 @@ public class Player extends Living {
 		if(handheld != null && !handheld.mayInteract()) return;
 
 		int yo = 1;
-
-		//TODO delay
-		lastInteract = tickCount;
 
 		//try entity
 		boolean done = false;
@@ -80,7 +76,7 @@ public class Player extends Living {
 		else if(dir == 3) xd += range;
 
 		int xt = (x + xd) >> T_SIZE;
-		int yt = (y + yd) >> T_SIZE;
+		int yt = (y + yo + yd) >> T_SIZE;
 
 		Tile tile = level.getTile(xt, yt);
 		if(tile != null) tile.interactOn(level, xt, yt, this, handheld);

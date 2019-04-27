@@ -11,9 +11,7 @@ public class FloorTile extends Tile {
 	}
 
 	public void render(Screen screen, Level level, int xt, int yt) {
-		if(level.hasLight(xt, yt)) {
-			screen.renderSprite(Atlas.getTexture(14, 0), xt << T_SIZE, yt << T_SIZE);
-		}
+		screen.renderSprite(Atlas.getTexture(14, 0), xt << T_SIZE, yt << T_SIZE);
 	}
 
 }

@@ -15,6 +15,7 @@ import vulc.ld44.gfx.menu.Menu;
 import vulc.ld44.input.InputHandler;
 import vulc.ld44.input.KeyBinding;
 import vulc.ld44.level.Level;
+import vulc.ld44.level.LevelLoader;
 import vulc.ld44.level.entity.Player;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
@@ -69,6 +70,10 @@ public class Game extends Canvas implements Runnable {
 		Sound.init();
 		Tile.init();
 		KeyBinding.init();
+
+		level = LevelLoader.loadLevel("/levels/debug.png");
+		player = new Player(level.xSpawn, level.ySpawn);
+		level.addEntity(player);
 
 		Debug.init(this);
 	}

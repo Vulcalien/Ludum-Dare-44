@@ -20,6 +20,7 @@ public class Level {
 	public final List<Entity> entities = new ArrayList<Entity>();
 	public final List<Entity>[] entitiesInTile;
 
+	public int xSpawn, ySpawn;
 	public Player player;
 	public int remainingEnemies = 0;
 
@@ -78,7 +79,7 @@ public class Level {
 			for(int xt = xt0; xt <= xt1; xt++) {
 				if(xt < 0 || xt >= width) continue;
 
-				getTile(xt, yt).render(screen, this, xt, yt);
+				if(hasLight(xt, yt)) getTile(xt, yt).render(screen, this, xt, yt);
 			}
 		}
 
