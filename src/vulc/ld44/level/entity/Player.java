@@ -18,6 +18,9 @@ public class Player extends Mob {
 	public Item handheld = null;
 
 	public int range = 16;
+	public int yo = 1;
+
+	public int xWatched, yWatched;
 
 	public int tickCount = 0;
 	public int lastAttack = 0;
@@ -60,6 +63,18 @@ public class Player extends Mob {
 
 		move(xm, ym);
 
+		if(xm != 0 || ym != 0) {
+			int xd = 0, yd = 0;
+
+			if(dir == 0) yd -= range;
+			else if(dir == 1) xd -= range;
+			else if(dir == 2) yd += range;
+			else if(dir == 3) xd += range;
+
+			xWatched = (x + xd) >> T_SIZE;
+			yWatched = (y + yo + yd) >> T_SIZE;
+		}
+
 		if(KeyBinding.INTERACT.isPressed()) interact();
 		if(KeyBinding.ATTACK.isKeyDown()) attack();
 	}
@@ -80,8 +95,6 @@ public class Player extends Mob {
 	public void interact() {
 		if(handheld != null && !handheld.mayInteract()) return;
 
-		int yo = 1;
-
 		//try entity
 		boolean done = false;
 		if(dir == 0) done = interactOnEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
@@ -91,18 +104,8 @@ public class Player extends Mob {
 		if(done) return;
 
 		//try tile
-		int xd = 0, yd = 0;
-
-		if(dir == 0) yd -= range;
-		else if(dir == 1) xd -= range;
-		else if(dir == 2) yd += range;
-		else if(dir == 3) xd += range;
-
-		int xt = (x + xd) >> T_SIZE;
-		int yt = (y + yo + yd) >> T_SIZE;
-
-		Tile tile = level.getTile(xt, yt);
-		if(tile != null) tile.interactOn(level, xt, yt, this, handheld);
+		Tile tile = level.getTile(xWatched, yWatched);
+		if(tile != null) tile.interactOn(level, xWatched, yWatched, this, handheld);
 	}
 
 	public boolean interactOnEntities(int x0, int y0, int x1, int y1) {
@@ -122,7 +125,6 @@ public class Player extends Mob {
 		if(tickCount - lastAttack < 30) return;
 		lastAttack = tickCount;
 
-		int yo = 1;
 		int range = this.range + (handheld != null ? handheld.getAttackRangeBonus() : 0);
 
 		if(dir == 0) attackEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
@@ -170,6 +172,10 @@ public class Player extends Mob {
 
 	public boolean canBeAttacked() {
 		return tickCount - lastAttacked >= 50;
+	}
+
+	public boolean obtainItem(Item item) {
+		return inventory.add(item);
 	}
 
 }

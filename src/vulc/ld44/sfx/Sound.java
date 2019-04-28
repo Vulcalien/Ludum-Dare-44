@@ -14,7 +14,8 @@ public class Sound {
 	OPEN_DOOR = new Sound("/sfx/open_door.wav"),
 	FOOTSTEP = new Sound("/sfx/footstep.wav"),
 	GAIN_FOCUS = new Sound("/sfx/gain_focus.wav"),
-	PLAYER_DEATH = new Sound("/sfx/player_death.wav");
+	PLAYER_DEATH = new Sound("/sfx/player_death.wav"),
+	BUY = new Sound("/sfx/buy.wav");
 
 	private Clip clip;
 

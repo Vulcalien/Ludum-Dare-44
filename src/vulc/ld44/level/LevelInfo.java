@@ -1,6 +1,5 @@
 package vulc.ld44.level;
 
-import vulc.ld44.item.Item;
 import vulc.ld44.item.ItemList;
 
 public abstract class LevelInfo {
@@ -22,14 +21,14 @@ public abstract class LevelInfo {
 		},
 	};
 
-	public static final Item[][] SHOPKEEPER_ITEMS = new Item[][] {
-		new Item[] {//id 0
-			ItemList.WOODEN_SWORD
+	public static final Trade[][] SHOPKEEPER_ITEMS = new Trade[][] {
+		new Trade[] {//id 0
+			new Trade(1, ItemList.WOODEN_SWORD)
 		},
-		new Item[] {//id 1
+		new Trade[] {//id 1
 
 		},
-		new Item[] {//id 2
+		new Trade[] {//id 2
 
 		},
 	};

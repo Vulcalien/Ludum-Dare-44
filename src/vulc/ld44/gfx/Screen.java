@@ -12,6 +12,7 @@ public class Screen extends Bitmap {
 	public static final Font FONT = new Font(Screen.class.getResourceAsStream("/fonts/non-monospaced.lwfont"));
 
 	private static final int BACKGROUND_COLOR = 0x000000;
+	public static Bitmap heartSprite;
 
 	private final Game game;
 
@@ -22,6 +23,10 @@ public class Screen extends Bitmap {
 		this.game = game;
 
 		setBackground(0xff00ff);
+	}
+
+	public static void init() {
+		heartSprite = Atlas.getSubimage(64, 0, 11, 10);
 	}
 
 	public void render() {
@@ -52,7 +57,7 @@ public class Screen extends Bitmap {
 
 		String hp = "HP: " + player.hp;
 		writeAbs(hp, 0x000000, 1, 161);
-		draw(Atlas.getSubimage(64, 0, 11, 10), 2 + FONT.lengthOf(hp), 161);
+		draw(heartSprite, 2 + FONT.lengthOf(hp), 161);
 
 		//TODO render inventory
 	}

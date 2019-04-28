@@ -7,13 +7,14 @@ import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.LevelInfo;
 import vulc.ld44.level.TileRef;
+import vulc.ld44.level.Trade;
 
 public class Shopkeeper extends Mob {
 
 	public String[] dialog;
 	public int dialogTime = 0;
 
-	public Item[] sellingItems;
+	public Trade[] trades;
 	public int placedItems = 0;
 
 	public int id;
@@ -70,12 +71,12 @@ public class Shopkeeper extends Mob {
 			level.talkedToShopkeeper = false;
 
 			dialog = LevelInfo.SHOPKEEPER_DIALOGS[id];
-			sellingItems = LevelInfo.SHOPKEEPER_ITEMS[id];
+			trades = LevelInfo.SHOPKEEPER_ITEMS[id];
 
 			//init sellTiles
 			for(int i = 0; i < level.sellTiles.size(); i++) {
 				TileRef tile = level.sellTiles.get(i);
-				if(placedItems >= sellingItems.length) {
+				if(placedItems >= trades.length) {
 					level.setData((byte) -1, tile.xt, tile.yt);
 				} else {
 					level.setData((byte) placedItems, tile.xt, tile.yt);

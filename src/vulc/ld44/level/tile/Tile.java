@@ -4,7 +4,6 @@ import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.Level;
-import vulc.ld44.level.SellTile;
 import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
 

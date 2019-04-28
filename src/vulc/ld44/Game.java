@@ -76,6 +76,7 @@ public class Game extends Canvas implements Runnable {
 		KeyBinding.init();
 		LevelInfo.init();
 		ItemList.init();
+		Screen.init();
 
 		level = LevelLoader.loadLevel("/levels/debug.png");
 		player = new Player(level.xSpawn, level.ySpawn);
