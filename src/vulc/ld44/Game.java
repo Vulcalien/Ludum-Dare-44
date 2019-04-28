@@ -17,7 +17,6 @@ import vulc.ld44.input.KeyBinding;
 import vulc.ld44.level.Level;
 import vulc.ld44.level.LevelLoader;
 import vulc.ld44.level.entity.Player;
-import vulc.ld44.level.entity.animation.Animation;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
 

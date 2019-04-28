@@ -16,18 +16,25 @@ public class DoorTile extends Tile {
 		connectsToWall = true;
 	}
 
+	public void init(Level level, int xt, int yt) {
+		level.setData((byte) 1, xt, yt);
+	}
+
 	public void render(Screen screen, Level level, int xt, int yt) {
 		Tile.FLOOR.render(screen, level, xt, yt);
-		if(level.getData(xt, yt) == 1) {
-			screen.renderSprite(Atlas.getTexture(11, 0), xt << T_SIZE, yt << T_SIZE);
+		int tOffset = level.getData(xt, yt) == 0 ? 0 : 1;
+
+		Tile underTile = level.getTile(xt, yt + 1);
+		if(underTile != null && underTile.connectsToWall) {
+			screen.renderSprite(Atlas.getTexture(11 + tOffset, 0), xt << T_SIZE, yt << T_SIZE);
 		} else {
-			screen.renderSprite(Atlas.getTexture(12, 0), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(11 + tOffset, 1), xt << T_SIZE, yt << T_SIZE);
 		}
 	}
 
 	public void interactOn(Level level, int xt, int yt, Player player, Item item) {
-		if(level.remainingEnemies == 0 && level.getData(xt, yt) == 0) {
-			level.setData((byte) 1, xt, yt);
+		if(level.remainingEnemies == 0 && level.getData(xt, yt) == 1) {
+			level.setData((byte) 0, xt, yt);
 			Sound.OPEN_DOOR.play();
 
 			level.spreadLight(xt, yt);
@@ -37,11 +44,11 @@ public class DoorTile extends Tile {
 	}
 
 	public boolean mayPass(Entity e, int xm, int ym, Level level, int xt, int yt) {
-		return level.getData(xt, yt) == 1;
+		return level.getData(xt, yt) == 0;
 	}
 
 	public boolean mayPassLight(Level level, int xt, int yt) {
-		return level.getData(xt, yt) == 1;
+		return level.getData(xt, yt) == 0;
 	}
 
 	public void onExit(Level level, int xt, int yt, Entity e) {

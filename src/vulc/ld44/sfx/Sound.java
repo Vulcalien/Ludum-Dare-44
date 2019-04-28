@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
 
 	public static enum Volume {ON, OFF}
-	public static Volume volume = Volume.ON;
+	public static Volume volume = Volume.OFF;
 
 	public static final Sound
 	ATTACK = new Sound("/sfx/attack.wav"),

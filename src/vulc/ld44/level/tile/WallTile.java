@@ -14,10 +14,10 @@ public class WallTile extends Tile {
 
 	public void render(Screen screen, Level level, int xt, int yt) {
 		Tile underTile = level.getTile(xt, yt + 1);
-		if(underTile == null || underTile.connectsToWall || !level.hasLight(xt, yt + 1)) {
-			screen.renderSprite(Atlas.getTexture(13, 1), xt << T_SIZE, yt << T_SIZE);
+		if(underTile != null && underTile.connectsToWall) {
+			screen.renderSprite(Atlas.getTexture(13, 0), xt << T_SIZE, yt << T_SIZE);
 		} else {
-			screen.renderSprite(Atlas.getTexture(14, 1), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(13, 1), xt << T_SIZE, yt << T_SIZE);
 		}
 	}
 

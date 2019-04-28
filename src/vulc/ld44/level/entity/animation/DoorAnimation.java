@@ -27,8 +27,6 @@ public class DoorAnimation extends Animation {
 	}
 
 	public void tick() {
-		System.out.println("d");
-
 		int speed = 1;
 		int xm = 0, ym = 0;
 
