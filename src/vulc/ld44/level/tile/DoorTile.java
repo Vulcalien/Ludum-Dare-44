@@ -1,12 +1,12 @@
 package vulc.ld44.level.tile;
 
+import vulc.ld44.animation.DoorAnimation;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.Level;
 import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
-import vulc.ld44.level.entity.animation.DoorAnimation;
 import vulc.ld44.sfx.Sound;
 
 public class DoorTile extends Tile {

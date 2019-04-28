@@ -66,6 +66,10 @@ public class Screen extends Bitmap {
 		FONT.write(text, color, this, x - xOffset, y - yOffset);
 	}
 
+	public void writeCentred(String text, int color, int x, int y) {
+		write(text, color, x - FONT.lengthOf(text) / 2, y - FONT.getHeight() / 2);
+	}
+
 	public void writeAbs(String text, int color, int x, int y) {
 		FONT.write(text, color, this, x, y);
 	}

@@ -1,4 +1,4 @@
-package vulc.ld44.level.entity.animation;
+package vulc.ld44.animation;
 
 import vulc.ld44.Game;
 

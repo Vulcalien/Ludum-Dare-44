@@ -10,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import vulc.ld44.gfx.Atlas;
+import vulc.ld44.gfx.ItemAtlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.gfx.menu.Menu;
 import vulc.ld44.input.InputHandler;
@@ -67,6 +68,7 @@ public class Game extends Canvas implements Runnable {
 	private void init() {
 		InputHandler.init(this);
 		Atlas.init();
+		ItemAtlas.init();
 		Sound.init();
 		Tile.init();
 		KeyBinding.init();

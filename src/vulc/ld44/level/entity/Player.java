@@ -6,19 +6,17 @@ import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.input.KeyBinding;
-import vulc.ld44.item.Inventory;
-import vulc.ld44.item.Item;
 import vulc.ld44.level.entity.particle.TestParticle;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
 
-public class Player extends Living {
+public class Player extends Mob {
 
-	public final Inventory inventory = new Inventory(5);
-	public final Item handheld = null;
+	public int range = 16;
 
 	public int tickCount = 0;
 	public int lastAttack = 0;
+	public int lastAttacked = 0;
 
 	public Player(int xt, int yt) {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
@@ -26,6 +24,8 @@ public class Player extends Living {
 
 		xr = 6;
 		yr = 7;
+
+		hp = 10;
 	}
 
 	public void init() {
@@ -56,13 +56,15 @@ public class Player extends Living {
 	}
 
 	public void render(Screen screen) {
+		if(!canBeAttacked() && tickCount / 5 % 2 == 0) return;
+
 		Bitmap sprite = Atlas.getTexture(dir, moveCount / 10 % 3);
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
 	}
 
 	public boolean[] move(int xm, int ym) {
 		boolean[] result = super.move(xm, ym);
-		if(moveCount % 10 == 0) Sound.FOOTSTEP.play();
+		if(moveCount % 10 == 0 && (xm != 0 || ym != 0)) Sound.FOOTSTEP.play();
 		return result;
 	}
 
@@ -73,14 +75,13 @@ public class Player extends Living {
 
 		//try entity
 		boolean done = false;
-		if(dir == 0) done = interactOnEntities(x - 8, y - 12 + yo, x + 8, y - 4 + yo);
-		else if(dir == 1) done = interactOnEntities(x - 12, y - 8 + yo, x - 4, y + 8 + yo);
-		else if(dir == 2) done = interactOnEntities(x - 8, y + 4 + yo, x + 8, y + 12 + yo);
-		else if(dir == 3) done = interactOnEntities(x + 4, y - 8 + yo, x + 12, y + 8 + yo);
+		if(dir == 0) done = interactOnEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
+		else if(dir == 1) done = interactOnEntities(x - range, y - 8 + yo, x - range + 8, y + 8 + yo);
+		else if(dir == 2) done = interactOnEntities(x - 8, y + range - 8 + yo, x + 8, y + range + yo);
+		else if(dir == 3) done = interactOnEntities(x + range - 8, y - 8 + yo, x + range, y + 8 + yo);
 		if(done) return;
 
 		//try tile
-		int range = 12;
 		int xd = 0, yd = 0;
 
 		if(dir == 0) yd -= range;
@@ -101,7 +102,7 @@ public class Player extends Living {
 		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			if(e.interactOn(this, handheld)) return true;
+			if(e.onInteract(this, handheld)) return true;
 		}
 		return false;
 	}
@@ -113,11 +114,12 @@ public class Player extends Living {
 		lastAttack = tickCount;
 
 		int yo = 1;
+		int range = this.range + (handheld != null ? handheld.getAttackRangeBonus() : 0);
 
-		if(dir == 0) attackEntities(x - 8, y - 12 + yo, x + 8, y - 4 + yo);
-		else if(dir == 1) attackEntities(x - 12, y - 8 + yo, x - 4, y + 8 + yo);
-		else if(dir == 2) attackEntities(x - 8, y + 4 + yo, x + 8, y + 12 + yo);
-		else if(dir == 3) attackEntities(x + 4, y - 8 + yo, x + 12, y + 8 + yo);
+		if(dir == 0) attackEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
+		else if(dir == 1) attackEntities(x - range, y - 8 + yo, x - range + 8, y + 8 + yo);
+		else if(dir == 2) attackEntities(x - 8, y + range - 8 + yo, x + 8, y + range + yo);
+		else if(dir == 3) attackEntities(x + range - 8, y - 8 + yo, x + range, y + 8 + yo);
 
 		Sound.ATTACK.play();
 	}
@@ -128,16 +130,37 @@ public class Player extends Living {
 		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			e.attack(getDamage(), this, handheld);
+			if(e instanceof Mob) {
+				Mob mob = (Mob) e;
+				mob.onAttack(getAttackDamage(), dir, 16, this, handheld);
+			}
 		}
 	}
 
-	public int getDamage() {
+	public int getAttackDamage() {
 		int dmg = 1;
 		if(handheld != null) {
 			dmg += handheld.getDamageBonus();
 		}
 		return dmg;
+	}
+
+	public void touchedBy(Entity e) {
+		if(e instanceof Enemy) {
+			Enemy enemy = (Enemy) e;
+			if(onAttack(enemy.getAttackDamage(), enemy.dir, 16, enemy, enemy.handheld)) {
+				lastAttacked = tickCount;
+			}
+		}
+	}
+
+	public void remove() {
+		super.remove();
+		Sound.PLAYER_DEATH.play();
+	}
+
+	public boolean canBeAttacked() {
+		return tickCount - lastAttacked >= 50;
 	}
 
 }

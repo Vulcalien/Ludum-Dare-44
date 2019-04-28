@@ -209,6 +209,11 @@ public class Level {
 			int xt = current.xt, yt = current.yt;
 
 			setLight(true, xt, yt);
+			List<Entity> entities = getEntitiesInTile(xt, yt, xt, yt);
+			for(int i = 0; i < entities.size(); i++) {
+				entities.get(i).receiveLight();
+			}
+
 			if(getTile(xt, yt).mayPassLight(this, xt, yt)) {
 				for(int y = -1; y <= 1; y++) {
 					int yNeighbor = yt + y;

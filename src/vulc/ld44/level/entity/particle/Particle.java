@@ -2,7 +2,7 @@ package vulc.ld44.level.entity.particle;
 
 import vulc.ld44.level.entity.Entity;
 
-public class Particle extends Entity {
+public abstract class Particle extends Entity {
 
 	public final int lifeTime;
 	public int remainingTime;

@@ -9,12 +9,13 @@ import vulc.ld44.item.Item;
 import vulc.ld44.level.Level;
 import vulc.ld44.level.tile.Tile;
 
-public class Entity {
+public abstract class Entity {
 
 	public static final int T_SIZE = Game.T_SIZE;
 
 	public Level level;
 	public boolean removed = false;
+	public boolean hasLight = false;
 
 	public int x, y;
 	//xr is half of the width, yr = half of the height
@@ -172,6 +173,10 @@ public class Entity {
 		removed = true;
 	}
 
+	public void receiveLight() {
+		hasLight = true;
+	}
+
 	public boolean isBlockedBy(Entity e) {
 		return false;
 	}
@@ -188,11 +193,8 @@ public class Entity {
 		return !(x - xr > x1 || x + xr - 1 < x0 || y - yr > y1 || y + yr - 1 < y0);
 	}
 
-	public boolean interactOn(Player player, Item item) {
+	public boolean onInteract(Player player, Item item) {
 		return false;
-	}
-
-	public void attack(int dmg, Entity attacker, Item item) {
 	}
 
 }

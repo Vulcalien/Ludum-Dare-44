@@ -7,7 +7,7 @@ import vulc.ld44.level.Level;
 import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
 
-public class Tile {
+public abstract class Tile {
 
 	public static final int T_SIZE = Game.T_SIZE;
 	public static final Tile[] TILES = new Tile[128];
