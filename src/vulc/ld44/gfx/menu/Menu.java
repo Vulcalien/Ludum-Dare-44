@@ -2,7 +2,7 @@ package vulc.ld44.gfx.menu;
 
 import vulc.ld44.gfx.Screen;
 
-public class Menu {
+public abstract class Menu {
 
 	public void tick() {
 	}

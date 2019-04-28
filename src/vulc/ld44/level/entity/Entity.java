@@ -2,6 +2,7 @@ package vulc.ld44.level.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
@@ -12,6 +13,8 @@ import vulc.ld44.level.tile.Tile;
 public abstract class Entity {
 
 	public static final int T_SIZE = Game.T_SIZE;
+
+	public Random random = new Random();
 
 	public Level level;
 	public boolean removed = false;

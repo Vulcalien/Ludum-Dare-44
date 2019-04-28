@@ -6,11 +6,16 @@ import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.input.KeyBinding;
+import vulc.ld44.item.Inventory;
+import vulc.ld44.item.Item;
 import vulc.ld44.level.entity.particle.TestParticle;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
 
 public class Player extends Mob {
+
+	public Inventory inventory = new Inventory(10);
+	public Item handheld = null;
 
 	public int range = 16;
 
@@ -152,7 +157,7 @@ public class Player extends Mob {
 	public void touchedBy(Entity e) {
 		if(e instanceof Enemy) {
 			Enemy enemy = (Enemy) e;
-			if(onAttack(enemy.getAttackDamage(), enemy.dir, 16, enemy, enemy.handheld)) {
+			if(onAttack(enemy.getAttackDamage(), enemy.dir, 16, enemy, null)) {
 				lastAttacked = tickCount;
 			}
 		}

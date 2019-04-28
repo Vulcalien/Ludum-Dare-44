@@ -4,6 +4,7 @@ import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.Level;
+import vulc.ld44.level.SellTile;
 import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
 
@@ -16,7 +17,8 @@ public abstract class Tile {
 	public static final Tile
 	FLOOR = new FloorTile(0),
 	WALL = new WallTile(1),
-	DOOR = new DoorTile(2);
+	DOOR = new DoorTile(2),
+	SELL = new SellTile(3);
 
 	public final byte id;
 	public boolean connectsToWall = false;
@@ -34,6 +36,9 @@ public abstract class Tile {
 	}
 
 	public void render(Screen screen, Level level, int xt, int yt) {
+	}
+
+	public void receiveLight(Level level, int xt, int yt) {
 	}
 
 	public void interactOn(Level level, int xt, int yt, Player player, Item item) {

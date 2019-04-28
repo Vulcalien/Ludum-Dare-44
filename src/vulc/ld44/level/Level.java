@@ -8,6 +8,7 @@ import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
+import vulc.ld44.level.entity.Shopkeeper;
 import vulc.ld44.level.tile.Tile;
 
 public class Level {
@@ -23,6 +24,8 @@ public class Level {
 
 	public int xSpawn, ySpawn;
 	public Player player;
+	public Shopkeeper shopkeeper = null;
+	public List<TileRef> sellTiles = new ArrayList<>();
 	public int awakenedEnemies = 0;
 	public boolean talkedToShopkeeper = true;
 
@@ -202,6 +205,8 @@ public class Level {
 		List<TileRef> checked = new ArrayList<TileRef>();
 		List<TileRef> toCheck = new ArrayList<TileRef>();
 
+		List<Entity> toLight = new ArrayList<Entity>();
+
 		TileRef current = new TileRef(xStart, yStart);
 		toCheck.add(current);
 
@@ -210,10 +215,8 @@ public class Level {
 			int xt = current.xt, yt = current.yt;
 
 			setLight(true, xt, yt);
-			List<Entity> entities = getEntitiesInTile(xt, yt, xt, yt);
-			for(int i = 0; i < entities.size(); i++) {
-				entities.get(i).receiveLight();
-			}
+			getTile(xt, yt).receiveLight(this, xt, yt);
+			toLight.addAll(getEntitiesInTile(xt, yt, xt, yt));
 
 			if(getTile(xt, yt).mayPassLight(this, xt, yt)) {
 				for(int y = -1; y <= 1; y++) {
@@ -235,6 +238,10 @@ public class Level {
 			toCheck.remove(0);
 			checked.add(current);
 		}
+
+		for(int i = 0; i < toLight.size(); i++) {
+			toLight.get(i).receiveLight();
+		}
 	}
 
 	public void clearLight() {
@@ -245,6 +252,8 @@ public class Level {
 		for(int i = 0; i < entities.size(); i++) {
 			entities.get(i).hasLight = false;
 		}
+
+		sellTiles.clear();
 	}
 
 	public boolean canOpenDoor() {

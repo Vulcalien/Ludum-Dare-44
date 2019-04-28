@@ -50,6 +50,10 @@ public class Screen extends Bitmap {
 		fill(160, 0, 176, 160, 0x666666);
 		fill(0, 160, 176, 176, 0x666666);
 
+		String hp = "HP: " + player.hp;
+		writeAbs(hp, 0x000000, 1, 161);
+		draw(Atlas.getSubimage(64, 0, 11, 10), 2 + FONT.lengthOf(hp), 161);
+
 		//TODO render inventory
 	}
 

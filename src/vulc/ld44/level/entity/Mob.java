@@ -10,7 +10,6 @@ public abstract class Mob extends Entity {
 
 	public boolean isAwakened = false;
 	public int hp;
-	public Item handheld = null;
 	public int xKnockback = 0, yKnockback = 0;
 
 	public Animation animation;
@@ -48,7 +47,7 @@ public abstract class Mob extends Entity {
 	public boolean onAttack(int dmg, int attackDir, int knockback, Entity attacker, Item item) {
 		if(attacker == this || !this.canBeAttacked()) return false;
 		hp -= dmg;
-		if(hp == 0) {
+		if(hp <= 0) {
 			remove();
 		} else {
 			if(receivesKnockback()) {

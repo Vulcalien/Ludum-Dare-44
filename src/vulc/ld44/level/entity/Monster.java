@@ -95,11 +95,13 @@ public class Monster extends Enemy {
 	}
 
 	public int getAttackDamage() {
-		int dmg = 1;
-		if(handheld != null) {
-			dmg += handheld.getDamageBonus();
+		return 4;
+	}
+
+	public void touchedBy(Entity e) {
+		if(e instanceof Player) {
+			e.touchedBy(this);
 		}
-		return dmg;
 	}
 
 }

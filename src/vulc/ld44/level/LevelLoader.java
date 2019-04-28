@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import vulc.ld44.level.entity.Monster;
-import vulc.ld44.level.entity.ShopKeeper;
+import vulc.ld44.level.entity.Shopkeeper;
 import vulc.ld44.level.tile.Tile;
 
 public abstract class LevelLoader {
@@ -43,6 +43,10 @@ public abstract class LevelLoader {
 						tile = Tile.DOOR;
 						break;
 
+					case 0xff0000:
+						tile = Tile.SELL;
+						break;
+
 					default:
 						System.out.println("Error: unrecognized tile color code");
 						break;
@@ -56,7 +60,7 @@ public abstract class LevelLoader {
 				} else if(entityData == 128) {
 					level.addEntity(new Monster(xt, yt));
 				} else if(entityData == 230) {
-					level.addEntity(new ShopKeeper(xt, yt));
+					level.addEntity(new Shopkeeper(xt, yt));
 				}
 			}
 			return level;

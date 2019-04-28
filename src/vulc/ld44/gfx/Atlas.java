@@ -28,4 +28,8 @@ public abstract class Atlas {
 		return atlas.getSubimage(xs << T_SIZE, ys << T_SIZE, w << T_SIZE, h << T_SIZE);
 	}
 
+	public static Bitmap getSubimage(int x, int y, int w, int h) {
+		return atlas.getSubimage(x, y, w, h);
+	}
+
 }
