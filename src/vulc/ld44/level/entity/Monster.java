@@ -6,7 +6,6 @@ import vulc.ld44.animation.MonsterSpotPlayerAnimation;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.item.Item;
-import vulc.ld44.item.WeaponItem;
 import vulc.ld44.sfx.Sound;
 
 public class Monster extends Enemy {
@@ -28,7 +27,7 @@ public class Monster extends Enemy {
 	}
 
 	public void tick() {
-		if(!hasLight) return;
+		if(!isAwakened) return;
 
 		tickCount++;
 
@@ -69,7 +68,7 @@ public class Monster extends Enemy {
 	public void render(Screen screen) {
 		if(!hasLight) return;
 
-		Bitmap sprite = Atlas.getTexture(dir, 4 + moveCount / 10 % 3);
+		Bitmap sprite = Atlas.getTexture(dir, 3 + moveCount / 10 % 2);
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
 
 		if(animation != null) {

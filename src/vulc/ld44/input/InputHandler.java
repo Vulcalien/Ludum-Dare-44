@@ -139,6 +139,18 @@ public class InputHandler implements KeyListener, MouseListener {
 			return wasKeyDown && !isKeyDown;
 		}
 
+		public void overrideIsKeyDown(boolean flag) {
+			isKeyDown = flag;
+		}
+
+		public void overrideWasKeyDown(boolean flag) {
+			wasKeyDown = flag;
+		}
+
+		public void overrideIsReleased(boolean flag) {
+			isReleased = flag;
+		}
+
 	}
 
 }

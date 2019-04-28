@@ -33,7 +33,7 @@ public class DoorTile extends Tile {
 	}
 
 	public void interactOn(Level level, int xt, int yt, Player player, Item item) {
-		if(level.remainingEnemies == 0 && level.getData(xt, yt) == 1) {
+		if(level.canOpenDoor() && level.getData(xt, yt) == 1) {
 			level.setData((byte) 0, xt, yt);
 			Sound.OPEN_DOOR.play();
 
@@ -56,7 +56,6 @@ public class DoorTile extends Tile {
 			level.setData((byte) 2, xt, yt);
 			level.clearLight();
 			level.spreadLight(e.x >> T_SIZE, e.y >> T_SIZE);
-			//FIX bug: you can be stuck in an already clear room
 		}
 	}
 

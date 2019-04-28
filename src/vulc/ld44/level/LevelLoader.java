@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import vulc.ld44.level.entity.Monster;
+import vulc.ld44.level.entity.ShopKeeper;
 import vulc.ld44.level.tile.Tile;
 
 public abstract class LevelLoader {
@@ -52,8 +53,10 @@ public abstract class LevelLoader {
 				if(entityData == 200) {
 					level.xSpawn = xt;
 					level.ySpawn = yt;
-				} else if(entityData == 230) {
+				} else if(entityData == 128) {
 					level.addEntity(new Monster(xt, yt));
+				} else if(entityData == 230) {
+					level.addEntity(new ShopKeeper(xt, yt));
 				}
 			}
 			return level;

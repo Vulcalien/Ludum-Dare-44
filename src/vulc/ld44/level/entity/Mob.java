@@ -8,6 +8,7 @@ public abstract class Mob extends Entity {
 	public int moveCount = 0;
 	public int dir = 0;
 
+	public boolean isAwakened = false;
 	public int hp;
 	public Item handheld = null;
 	public int xKnockback = 0, yKnockback = 0;
@@ -29,6 +30,11 @@ public abstract class Mob extends Entity {
 		xKnockback = 0;
 		yKnockback = 0;
 		return result;
+	}
+
+	public void receiveLight() {
+		super.receiveLight();
+		isAwakened = true;
 	}
 
 	public boolean isBlockedBy(Entity e) {

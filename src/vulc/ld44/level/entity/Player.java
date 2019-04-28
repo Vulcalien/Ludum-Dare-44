@@ -18,6 +18,8 @@ public class Player extends Mob {
 	public int lastAttack = 0;
 	public int lastAttacked = 0;
 
+	public boolean talkingToShopkeeper = false;
+
 	public Player(int xt, int yt) {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
 		this.y = (yt << T_SIZE) + (1 << T_SIZE) / 2;
@@ -41,6 +43,8 @@ public class Player extends Mob {
 			return;
 		}
 
+		if(talkingToShopkeeper) return;
+
 		int speed = 1;
 
 		int xm = 0, ym = 0;
@@ -58,7 +62,7 @@ public class Player extends Mob {
 	public void render(Screen screen) {
 		if(!canBeAttacked() && tickCount / 5 % 2 == 0) return;
 
-		Bitmap sprite = Atlas.getTexture(dir, moveCount / 10 % 3);
+		Bitmap sprite = Atlas.getTexture(dir, moveCount / 10 % 2);
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
 	}
 
