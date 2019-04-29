@@ -17,7 +17,7 @@ public class StartMenu extends ListMenu {
 		buttons.add(new Button("PLAY", () -> game.menu = null));
 		buttons.add(new Button("Instructions", () -> game.menu = new InstructionsMenu(game)));
 
-		focusedPosition = 2;//instructions
+		focusedPosition = 1;
 	}
 
 	public void render(Screen screen) {
@@ -25,7 +25,7 @@ public class StartMenu extends ListMenu {
 
 		for(int i = 0; i < buttons.size(); i++) {
 			Button button = buttons.get(i);
-			int color = (i == focusedPosition) ? 0xff8888: 0xffffff;
+			int color = (i == focusedPosition) ? 0xffff44: 0xffffff;
 
 			if(i == 0)
 				screen.writeAbs(button.text, color, margin, screen.height - margin - Screen.FONT.getHeight());

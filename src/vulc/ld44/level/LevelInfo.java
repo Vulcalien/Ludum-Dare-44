@@ -18,7 +18,7 @@ public abstract class LevelInfo {
 			"I want to be paid...",
 			"With your blood!!",
 			"That number in the bottom of the screen!",
-			"It indicates how many blood you have.",
+			"It indicates how much blood you have.",
 			"To buy items you have to press L",
 			"while watching the item you want.",
 			"If your inventory has enought space",

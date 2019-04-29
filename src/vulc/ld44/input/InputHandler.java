@@ -108,7 +108,7 @@ public class InputHandler implements KeyListener, MouseListener, FocusListener {
 	}
 
 	public void focusLost(FocusEvent e) {
-		game.menu = new PauseMenu(game);
+		if(game.menu == null || !game.menu.blocksLevelTick()) game.menu = new PauseMenu(game);
 		for(int i = 0; i < KEYBOARD_KEYS.size(); i++) {
 			KEYBOARD_KEYS.get(i).isReleased = true;
 		}

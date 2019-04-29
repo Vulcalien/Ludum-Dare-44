@@ -10,7 +10,7 @@ import java.util.List;
 import vulc.ld44.Game;
 import vulc.ld44.input.KeyBinding;
 
-public class ListMenu extends Menu {
+public abstract class ListMenu extends Menu {
 
 	public static enum ListOrientation {HORIZONTAL, VERTICAL}
 

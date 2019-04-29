@@ -83,13 +83,15 @@ public class Game extends Canvas implements Runnable {
 		ItemList.init();
 		Screen.init();
 
+		initLevel();
+	}
+
+	public void initLevel() {
 		level = LevelLoader.loadLevel(this, "/levels/level.png");
 		player = new Player(level.xSpawn, level.ySpawn);
 		level.addEntity(player);
 
 		menu = new StartMenu(this);
-
-		Debug.init(this);
 	}
 
 	private void tick() {
@@ -111,8 +113,6 @@ public class Game extends Canvas implements Runnable {
 				menu = new PauseMenu(this);
 			}
 		}
-
-		Debug.tick();
 
 		//must tick the last
 		InputHandler.tick();
