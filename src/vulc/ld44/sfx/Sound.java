@@ -16,17 +16,17 @@ public class Sound {
 		}
 	}
 
-	public static Volume volume = Volume.OFF;
+	public static Volume volume = Volume.ON;
 
 	public static final Sound
-	ATTACK = new Sound("/sfx/attack.wav"),
+	PLAYER_ATTACK = new Sound("/sfx/player_attack.wav"),
 	OPEN_DOOR = new Sound("/sfx/open_door.wav"),
 	FOOTSTEP = new Sound("/sfx/footstep.wav"),
-	GAIN_FOCUS = new Sound("/sfx/gain_focus.wav"),
 	PLAYER_DEATH = new Sound("/sfx/player_death.wav"),
 	BUY = new Sound("/sfx/buy.wav"),
 	PLAYER_HURT = new Sound("/sfx/player_hurt.wav"),
-	MONSTER_HURT = new Sound("/sfx/monster_hurt.wav");
+	MONSTER_HURT = new Sound("/sfx/monster_hurt.wav"),
+	SHOPKEEPER_DIALOG = new Sound("/sfx/shopkeeper_dialog.wav");
 
 	private Clip clip;
 

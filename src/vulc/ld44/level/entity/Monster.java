@@ -38,9 +38,7 @@ public class Monster extends Enemy {
 		}
 
 		if(target == null) {
-			if(gainFocus()) {
-				Sound.GAIN_FOCUS.play();
-			} else {
+			if(!gainFocus()) {
 				//TODO monster walks random
 			}
 		} else {

@@ -8,6 +8,7 @@ import vulc.ld44.item.Item;
 import vulc.ld44.level.LevelInfo;
 import vulc.ld44.level.TileRef;
 import vulc.ld44.level.Trade;
+import vulc.ld44.sfx.Sound;
 
 public class Shopkeeper extends Mob {
 
@@ -36,6 +37,7 @@ public class Shopkeeper extends Mob {
 			if(KeyBinding.INTERACT.isPressed()) {
 				KeyBinding.INTERACT.overrideWasKeyDown(true);
 				dialogTime++;
+				if(dialogTime < dialog.length) Sound.SHOPKEEPER_DIALOG.play();
 			}
 			if(dialogTime >= dialog.length) {
 				dialogTime = 0;
@@ -93,6 +95,7 @@ public class Shopkeeper extends Mob {
 	public boolean onInteract(Player player, Item item) {
 		if(level.awakenedEnemies != 0) return false;
 
+		Sound.SHOPKEEPER_DIALOG.play();
 		player.talkingToShopkeeper = true;
 		talkingToPlayer = true;
 		this.player = player;

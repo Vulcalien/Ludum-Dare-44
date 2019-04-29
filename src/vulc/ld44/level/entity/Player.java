@@ -136,7 +136,7 @@ public class Player extends Mob {
 		else if(dir == 2) attackEntities(x - 16, y + range - 16 + yo, x + 16, y + range + yo);
 		else if(dir == 3) attackEntities(x + range - 16, y - 16 + yo, x + range, y + 16 + yo);
 
-		Sound.ATTACK.play();
+		Sound.PLAYER_ATTACK.play();
 	}
 
 	public void attackEntities(int x0, int y0, int x1, int y1) {
@@ -178,7 +178,7 @@ public class Player extends Mob {
 	}
 
 	public boolean canBeAttacked() {
-		return tickCount - lastAttacked >= 90;
+		return tickCount - lastAttacked >= 75;
 	}
 
 	public boolean obtainItem(Item item) {
