@@ -1,8 +1,8 @@
 package vulc.ld44.level;
 
-import vulc.ld44.item.ItemList;
-import vulc.ld44.item.WeaponItem;
+import static vulc.ld44.item.ItemList.*;
 
+@SuppressWarnings("unused")
 public abstract class LevelInfo {
 
 	public static final String[][] SHOPKEEPER_DIALOGS = new String[][] {
@@ -11,8 +11,6 @@ public abstract class LevelInfo {
 			"Debug 0"
 		},
 		new String[] {//id 1
-			"Test 1",
-			"Debug 1"
 		},
 		new String[] {//id 2
 			"Test 2",
@@ -24,21 +22,10 @@ public abstract class LevelInfo {
 
 	public static final Trade[][] SHOPKEEPER_ITEMS = new Trade[][] {
 		new Trade[] {//id 0
-			new Trade(1, ItemList.WOODEN_SWORD),
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			new Trade(100, new WeaponItem("as", 1, 0, 10, 13))
 		},
 		new Trade[] {//id 1
-
 		},
 		new Trade[] {//id 2
-
 		},
 	};
 

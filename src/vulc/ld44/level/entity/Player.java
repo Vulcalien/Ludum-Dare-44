@@ -32,6 +32,7 @@ public class Player extends Mob {
 	public int lastAttacked = 0;
 
 	public boolean talkingToShopkeeper = false;
+	public boolean wonLevel = false;
 
 	public Player(int xt, int yt) {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
@@ -49,6 +50,11 @@ public class Player extends Mob {
 
 	public void tick() {
 		tickCount++;
+
+		if(wonLevel) {
+//			level.game.menu = new WinMenu(level.game);
+			return;
+		}
 
 		if(animation != null) {
 			animation.tick();
@@ -125,7 +131,7 @@ public class Player extends Mob {
 	public void attack() {
 		if(weapon != null && !weapon.mayAttack()) return;
 
-		if(tickCount - lastAttack < 20) return;
+		if(tickCount - lastAttack < 30) return;
 		lastAttack = tickCount;
 
 		int range = this.range + (weapon != null ? weapon.getAttackRangeBonus() : 0);
@@ -174,6 +180,8 @@ public class Player extends Mob {
 	public void remove() {
 		super.remove();
 		Sound.PLAYER_DEATH.play();
+		//TODO add lose menu
+//		level.game.menu = new LoseMenu(level.game);
 	}
 
 	public boolean canBeAttacked() {

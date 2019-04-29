@@ -26,6 +26,7 @@ public abstract class Mob extends Entity {
 		}
 
 		//BUG somehow the knockback doesn't work when moving
+		//BUG monsters get inside other monsters
 		boolean[] result = super.move(xm + xKnockback, ym + yKnockback);
 
 		xKnockback = 0;

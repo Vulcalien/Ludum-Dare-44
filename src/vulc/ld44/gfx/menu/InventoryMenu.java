@@ -3,6 +3,7 @@ package vulc.ld44.gfx.menu;
 import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.input.KeyBinding;
+import vulc.ld44.item.ArmorItem;
 import vulc.ld44.item.Inventory;
 import vulc.ld44.item.Item;
 import vulc.ld44.item.WeaponItem;
@@ -43,6 +44,11 @@ public class InventoryMenu extends Menu {
 				player.weapon = (WeaponItem) focused;
 				inventory.set(focusedItem, old);
 				Sound.EQUIP.play();
+			} else if(focused instanceof ArmorItem) {
+				ArmorItem old = player.armor;
+				player.armor = (ArmorItem) focused;
+				inventory.set(focusedItem, old);
+				Sound.EQUIP.play();
 			}
 		}
 	}
@@ -62,6 +68,8 @@ public class InventoryMenu extends Menu {
 		screen.fill(x0 + 1, y0 + 1, x0 + 2, y0 + height - 1, 0x333333);
 		screen.fill(x0 + 1, y0 + height - 2, x0 + width - 2, y0 + height - 1, 0x333333);
 		screen.fill(x0 + width - 2, y0 + 1, x0 + width - 1, y0 + height - 1, 0x333333);
+
+		screen.writeCentredAbs("Press L to equip", 0xaaaaaa, x0 + width / 2, y0 + height - margin - Screen.FONT.getHeight() / 2);
 
 		for(int i = 0; i < inventory.size; i++) {
 			int x = i % 6;

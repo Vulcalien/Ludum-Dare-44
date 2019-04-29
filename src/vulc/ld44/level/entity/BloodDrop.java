@@ -54,7 +54,7 @@ public class BloodDrop extends Entity {
 		if(e instanceof Player) {
 			Player player = (Player) e;
 			if(player.heal(value)) {
-				Sound.GAIN_BLOOD.play();
+				Sound.PICKUP_BLOOD.play();
 				remove();
 			}
 		}
