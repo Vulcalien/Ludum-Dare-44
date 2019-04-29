@@ -79,7 +79,7 @@ public class Game extends Canvas implements Runnable {
 		ItemList.init();
 		Screen.init();
 
-		level = LevelLoader.loadLevel("/levels/debug.png");
+		level = LevelLoader.loadLevel(this, "/levels/debug.png");
 		player = new Player(level.xSpawn, level.ySpawn);
 		level.addEntity(player);
 

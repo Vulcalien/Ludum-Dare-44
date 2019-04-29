@@ -1,5 +1,7 @@
 package vulc.ld44.input;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -8,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vulc.ld44.Game;
+import vulc.ld44.gfx.menu.PauseMenu;
 
-public class InputHandler implements KeyListener, MouseListener {
+public class InputHandler implements KeyListener, MouseListener, FocusListener {
 
 	public static enum KeyType {KEYBOARD, MOUSE}
 	public static enum KeyAction {PRESS, RELEASE}
@@ -17,10 +20,15 @@ public class InputHandler implements KeyListener, MouseListener {
 	public static final List<Key> KEYBOARD_KEYS = new ArrayList<Key>();
 	public static final List<Key> MOUSE_KEYS = new ArrayList<Key>();
 
+	public static Game game;
+
 	public static void init(Game game) {
+		InputHandler.game = game;
+
 		InputHandler instance = new InputHandler();
 		game.addKeyListener(instance);
 		game.addMouseListener(instance);
+		game.addFocusListener(instance);
 
 		game.requestFocus();
 	}
@@ -90,6 +98,19 @@ public class InputHandler implements KeyListener, MouseListener {
 	}
 
 	public void mouseExited(MouseEvent e) {
+	}
+
+	public void focusGained(FocusEvent e) {
+	}
+
+	public void focusLost(FocusEvent e) {
+		game.menu = new PauseMenu(game);
+		for(int i = 0; i < KEYBOARD_KEYS.size(); i++) {
+			KEYBOARD_KEYS.get(i).isReleased = true;
+		}
+		for(int i = 0; i < MOUSE_KEYS.size(); i++) {
+			MOUSE_KEYS.get(i).isReleased = true;
+		}
 	}
 
 	public static class Key {

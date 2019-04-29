@@ -21,12 +21,12 @@ public class Sound {
 	public static final Sound
 	PLAYER_ATTACK = new Sound("/sfx/player_attack.wav"),
 	OPEN_DOOR = new Sound("/sfx/open_door.wav"),
-	FOOTSTEP = new Sound("/sfx/footstep.wav"),
 	PLAYER_DEATH = new Sound("/sfx/player_death.wav"),
 	BUY = new Sound("/sfx/buy.wav"),
 	PLAYER_HURT = new Sound("/sfx/player_hurt.wav"),
 	MONSTER_HURT = new Sound("/sfx/monster_hurt.wav"),
-	SHOPKEEPER_DIALOG = new Sound("/sfx/shopkeeper_dialog.wav");
+	SHOPKEEPER_DIALOG = new Sound("/sfx/shopkeeper_dialog.wav"),
+	GAIN_BLOOD = new Sound("/sfx/gain_blood.wav");
 
 	private Clip clip;
 

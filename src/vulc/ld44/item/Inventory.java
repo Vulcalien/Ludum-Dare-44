@@ -3,7 +3,7 @@ package vulc.ld44.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import vulc.ld44.gfx.Screen;
+import vulc.ld44.Game;
 
 public class Inventory {
 
@@ -19,9 +19,6 @@ public class Inventory {
 	public void tick() {
 	}
 
-	public void render(Screen screen) {
-	}
-
 	public boolean add(Item item) {
 		if(items.size() != size) {
 			items.add(item);
@@ -32,6 +29,10 @@ public class Inventory {
 
 	public void remove(Item item) {
 		items.remove(item);
+	}
+
+	public void openMenu(Game game) {
+//		game.menu = new InventoryMenu(game, this);
 	}
 
 }

@@ -15,6 +15,7 @@ public class Level {
 
 	public static final int T_SIZE = Game.T_SIZE;
 
+	public final Game game;
 	public final int width, height;
 	public final byte[] tiles;
 	public final byte[] data;
@@ -38,7 +39,8 @@ public class Level {
 	};
 
 	@SuppressWarnings("unchecked")
-	public Level(int width, int height) {
+	public Level(Game game, int width, int height) {
+		this.game = game;
 		this.width = width;
 		this.height = height;
 		this.tiles = new byte[width * height];

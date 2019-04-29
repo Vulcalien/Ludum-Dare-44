@@ -73,7 +73,7 @@ public class InstructionsMenu extends Menu {
 		screen.writeAbs("    ESC   -   menu", color, margin, offset);
 
 		offset += lineDistance;
-		screen.writeAbs("    ENTER -   press (in menus)", color, margin, offset);
+		screen.writeAbs("    ENTER -   interact (in menus)", color, margin, offset);
 
 		offset += lineDistance;
 		screen.writeAbs("    A D   -   move (in menus)", color, margin, offset);

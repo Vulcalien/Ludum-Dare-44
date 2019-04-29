@@ -104,4 +104,9 @@ public class Monster extends Enemy {
 		}
 	}
 
+	public void remove() {
+		super.remove();
+		level.addEntity(new BloodDrop(x, y, 50 + random.nextInt(100)));
+	}
+
 }

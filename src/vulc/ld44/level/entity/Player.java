@@ -15,9 +15,11 @@ import vulc.ld44.sfx.Sound;
 
 public class Player extends Mob {
 
+	public static final int MAX_HP = 1000;
+
 	public Inventory inventory = new Inventory(10);
 	public Item handheld = null;
-	public ArmorItem armor = new ArmorItem("a", 1, 0, 50);
+	public ArmorItem armor = null;
 
 	public int range = 32;
 	public int yo = 2;
@@ -37,7 +39,7 @@ public class Player extends Mob {
 		xr = 12;
 		yr = 14;
 
-		hp = 1000;
+		hp = MAX_HP;
 	}
 
 	public void init() {
@@ -81,6 +83,8 @@ public class Player extends Mob {
 
 		if(KeyBinding.INTERACT.isPressed()) interact();
 		if(KeyBinding.ATTACK.isKeyDown()) attack();
+
+		if(KeyBinding.OPEN_INVENTORY.isPressed()) inventory.openMenu(level.game);
 	}
 
 	public void render(Screen screen) {
@@ -88,12 +92,6 @@ public class Player extends Mob {
 
 		Bitmap sprite = Atlas.getTexture(dir, moveCount / 10 % 2);
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 2);
-	}
-
-	public boolean[] move(int xm, int ym) {
-		boolean[] result = super.move(xm, ym);
-		if(moveCount % 10 == 0 && (xm != 0 || ym != 0)) Sound.FOOTSTEP.play();
-		return result;
 	}
 
 	public void interact() {
@@ -183,6 +181,14 @@ public class Player extends Mob {
 
 	public boolean obtainItem(Item item) {
 		return inventory.add(item);
+	}
+
+	public boolean heal(int value) {
+		if(hp >= MAX_HP) return false;
+
+		hp += value;
+		if(hp > MAX_HP) hp = MAX_HP;
+		return true;
 	}
 
 }

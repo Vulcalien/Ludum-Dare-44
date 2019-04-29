@@ -57,11 +57,12 @@ public class Shopkeeper extends Mob {
 		if(!level.talkedToShopkeeper && level.awakenedEnemies == 0 && !talkingToPlayer) {
 			Bitmap arrow = Atlas.getTexture(tickCount / 20 % 2, 7);
 			screen.renderSprite(arrow, x - arrow.width / 2, y - (1 << T_SIZE) - arrow.height / 2 - 2);
+			if(id == 0) screen.writeCentred("Press L to talk", 0xffffff, x, y - (1 << T_SIZE) - arrow.height / 2 - 2 - Screen.FONT.getHeight() / 2);
 		}
 
 		if(talkingToPlayer) {
 			if(dialogTime < dialog.length) {
-				screen.writeCentred(dialog[dialogTime], 0x888888, x + 1, y - (1 << T_SIZE) + 1);
+				screen.writeCentred(dialog[dialogTime], 0x606060, x + 1, y - (1 << T_SIZE) + 1);
 				screen.writeCentred(dialog[dialogTime], 0xffffff, x, y - (1 << T_SIZE));
 			}
 		}

@@ -5,13 +5,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import vulc.ld44.Game;
 import vulc.ld44.level.entity.Monster;
 import vulc.ld44.level.entity.Shopkeeper;
 import vulc.ld44.level.tile.Tile;
 
 public abstract class LevelLoader {
 
-	public static Level loadLevel(String file) {
+	public static Level loadLevel(Game game, String file) {
 		try {
 			BufferedImage image = ImageIO.read(LevelLoader.class.getResourceAsStream(file));
 			int w = image.getWidth();
@@ -20,7 +21,7 @@ public abstract class LevelLoader {
 			int[] pixels = new int[image.getWidth() * image.getHeight()];
 			image.getRGB(0, 0, w, h, pixels, 0, w);
 
-			Level level = new Level(w, h);
+			Level level = new Level(game, w, h);
 			for(int i = 0; i < pixels.length; i++) {
 				int xt = i % w;
 				int yt = i / w;

@@ -59,6 +59,8 @@ public class PauseMenu extends ListMenu {
 
 			offset += lineDistance;
 		}
+
+		screen.writeCentredAbs("ESC to return to game", 0xaaaaaa, x0 + width / 2, y0 + height - margin - Screen.FONT.getHeight() / 2);
 	}
 
 	public boolean blocksLevelRender() {
