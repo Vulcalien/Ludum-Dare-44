@@ -99,7 +99,7 @@ public class Monster extends Enemy {
 	}
 
 	public int getAttackDamage() {
-		return 150;
+		return 125;
 	}
 
 	public void touchedBy(Entity e) {

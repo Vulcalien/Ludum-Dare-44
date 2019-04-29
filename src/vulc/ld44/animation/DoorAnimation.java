@@ -31,7 +31,7 @@ public class DoorAnimation extends Animation {
 	}
 
 	public void tick() {
-		int speed = 2;
+		int speed = 1;
 		int xm = 0, ym = 0;
 
 		int xTarget, yTarget;

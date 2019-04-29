@@ -74,7 +74,7 @@ public class InstructionsMenu extends Menu {
 		screen.writeAbs("    I     -   open inventory", color, margin, offset);
 
 		offset += lineDistance;
-		screen.writeAbs("    ESC   -   menu", color, margin, offset);
+		screen.writeAbs("    ESC   -   menu and skip dialogs", color, margin, offset);
 
 		offset += lineDistance;
 		screen.writeAbs("    ENTER -   interact (in menus)", color, margin, offset);
