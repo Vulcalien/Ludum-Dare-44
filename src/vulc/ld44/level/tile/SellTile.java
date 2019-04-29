@@ -44,17 +44,28 @@ public class SellTile extends Tile {
 	}
 
 	public void init(Level level, int xt, int yt) {
-		level.setData((byte) -1, xt, yt);
+		level.setData((byte) -2, xt, yt);
 	}
 
 	public Trade getTrade(Level level, int xt, int yt) {
 		byte data = level.getData(xt, yt);
-		if(data == -1) return null;
-		return level.shopkeeper.trades[data];
+		if(data == -1 || data == -2) return null;
+		try {
+			return level.shopkeeper.trades[data];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			//BUG there is a bug here
+			System.out.println("Error loading this SellTile: " + xt + " " + yt + ". Error Infos: ");
+			System.out.println(" - trades.lenght: " + level.shopkeeper.trades.length);
+			return null;
+		}
 	}
 
 	public void receiveLight(Level level, int xt, int yt) {
-		level.sellTiles.add(new TileRef(xt, yt));
+		byte data = level.getData(xt, yt);
+		if(data == -2) {
+			level.sellTiles.add(new TileRef(xt, yt));
+			level.setData((byte) -1, xt, yt);
+		}
 	}
 
 	public boolean mayPass(Entity e, int xm, int ym, Level level, int xt, int yt) {

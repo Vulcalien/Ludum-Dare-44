@@ -18,7 +18,7 @@ public abstract class KeyBinding {
 
 	OPEN_INVENTORY = new Key(),
 
-	MENU = new Key(),
+	ESC = new Key(),
 	ENTER = new Key(),
 	SPACE = new Key();
 
@@ -33,7 +33,7 @@ public abstract class KeyBinding {
 
 		OPEN_INVENTORY.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_I);
 
-		MENU.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_ESCAPE);
+		ESC.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_ESCAPE);
 		ENTER.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_ENTER);
 		SPACE.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_SPACE);
 	}

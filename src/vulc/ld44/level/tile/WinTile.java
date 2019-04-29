@@ -1,7 +1,9 @@
 package vulc.ld44.level.tile;
 
-import vulc.ld44.item.Item;
+import vulc.ld44.gfx.Atlas;
+import vulc.ld44.gfx.Screen;
 import vulc.ld44.level.Level;
+import vulc.ld44.level.entity.Entity;
 import vulc.ld44.level.entity.Player;
 
 public class WinTile extends Tile {
@@ -10,8 +12,15 @@ public class WinTile extends Tile {
 		super(id);
 	}
 
-	public void interactOn(Level level, int xt, int yt, Player player, Item item) {
-		player.wonLevel = true;
+	public void render(Screen screen, Level level, int xt, int yt) {
+		screen.renderSprite(Atlas.getTexture(14, 5), xt << T_SIZE, yt << T_SIZE);
+	}
+
+	public void onEnter(Level level, int xt, int yt, Entity e) {
+		if(e instanceof Player) {
+			Player player = (Player) e;
+			player.wonLevel = true;
+		}
 	}
 
 }

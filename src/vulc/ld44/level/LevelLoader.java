@@ -48,6 +48,10 @@ public abstract class LevelLoader {
 						tile = Tile.SELL;
 						break;
 
+					case 0xffff00:
+						tile = Tile.WIN;
+						break;
+
 					default:
 						System.out.println("Error: unrecognized tile color code");
 						break;
@@ -60,8 +64,10 @@ public abstract class LevelLoader {
 					level.ySpawn = yt;
 				} else if(entityData == 128) {
 					level.addEntity(new Monster(xt, yt));
-				} else if(entityData == 230) {
+				} else if(entityData == 92) {
 					level.addEntity(new Shopkeeper(xt, yt));
+				} else if(entityData != 255) {
+					System.out.println("Error: unrecognized entity color code");
 				}
 			}
 			return level;

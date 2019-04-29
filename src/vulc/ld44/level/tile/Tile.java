@@ -19,7 +19,8 @@ public abstract class Tile {
 	FLOOR = new FloorTile(0),
 	WALL = new WallTile(1),
 	DOOR = new DoorTile(2),
-	SELL = new SellTile(3);
+	SELL = new SellTile(3),
+	WIN = new WinTile(4);
 
 	public final Random random = new Random();
 	public final byte id;

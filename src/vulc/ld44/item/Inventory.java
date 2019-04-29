@@ -11,6 +11,8 @@ public class Inventory {
 
 	public final int size;
 
+	//TODO add a new class 'ItemStack' or 'ItemInstance'
+	//with List<Item> we can have only 1 instance per Item
 	public final List<Item> items = new ArrayList<Item>();
 
 	//size = -1 means infinite slots
@@ -35,7 +37,11 @@ public class Inventory {
 	}
 
 	public void set(int index, Item item) {
-		items.set(index, item);
+		if(item != null) {
+			items.set(index, item);
+		} else {
+			items.remove(index);
+		}
 	}
 
 	public void remove(Item item) {

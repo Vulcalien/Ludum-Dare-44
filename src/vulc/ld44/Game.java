@@ -14,6 +14,7 @@ import vulc.ld44.gfx.ItemAtlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.gfx.menu.Menu;
 import vulc.ld44.gfx.menu.PauseMenu;
+import vulc.ld44.gfx.menu.StartMenu;
 import vulc.ld44.input.InputHandler;
 import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.ItemList;
@@ -83,25 +84,30 @@ public class Game extends Canvas implements Runnable {
 		player = new Player(level.xSpawn, level.ySpawn);
 		level.addEntity(player);
 
-		//DEBUG hidden menu
-//		menu = new StartMenu(this);
+		menu = new StartMenu(this);
 
 		Debug.init(this);
 	}
 
 	private void tick() {
 		boolean levelShouldTick = true;
-		if(menu != null) {
+		boolean menuWasNull = menu == null;
+		if(!menuWasNull) {
 			levelShouldTick = !menu.blocksLevelTick();
 			menu.tick();
-		} else {
-			if(KeyBinding.MENU.isPressed()) menu = new PauseMenu(this);
 		}
+
 		if(levelShouldTick && level != null) {
 			level.tick();
 		}
 
 		Tile.tickCount++;
+
+		if(menuWasNull) {
+			if(KeyBinding.ESC.isPressed()) {
+				menu = new PauseMenu(this);
+			}
+		}
 
 		Debug.tick();
 
@@ -179,7 +185,7 @@ public class Game extends Canvas implements Runnable {
 		instance.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		instance.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
-		JFrame frame = new JFrame("Ludum Dare 44 - Vulcalien's Game");
+		JFrame frame = new JFrame("Just a Dungeon");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 

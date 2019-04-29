@@ -34,7 +34,14 @@ public class Shopkeeper extends Mob {
 	public void tick() {
 		tickCount++;
 		if(talkingToPlayer) {
-			if(KeyBinding.INTERACT.isPressed()) {
+			boolean forcedEnd = false;
+			if(KeyBinding.ESC.isPressed()) {
+				KeyBinding.ESC.overrideWasKeyDown(true);
+				dialogTime = dialog.length;
+				forcedEnd = true;
+			}
+
+			if(forcedEnd || KeyBinding.INTERACT.isPressed()) {
 				KeyBinding.INTERACT.overrideWasKeyDown(true);
 				dialogTime++;
 				if(dialogTime < dialog.length) Sound.SHOPKEEPER_DIALOG.play();

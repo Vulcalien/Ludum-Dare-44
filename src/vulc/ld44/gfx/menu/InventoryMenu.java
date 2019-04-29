@@ -23,7 +23,7 @@ public class InventoryMenu extends Menu {
 	}
 
 	public void tick() {
-		if(KeyBinding.OPEN_INVENTORY.isPressed() || KeyBinding.MENU.isPressed()) game.menu = null;
+		if(KeyBinding.OPEN_INVENTORY.isPressed() || KeyBinding.ESC.isPressed()) game.menu = null;
 		if(KeyBinding.A.isPressed()) {
 			if(focusedItem > 0) focusedItem--;
 		}
@@ -51,6 +51,8 @@ public class InventoryMenu extends Menu {
 				Sound.EQUIP.play();
 			}
 		}
+
+		//TODO add remove object
 	}
 
 	public void render(Screen screen) {

@@ -25,7 +25,7 @@ public class PauseMenu extends ListMenu {
 
 	public void tick() {
 		super.tick();
-		if(KeyBinding.MENU.isPressed()) game.menu = null;
+		if(KeyBinding.ESC.isPressed()) game.menu = null;
 	}
 
 	public void render(Screen screen) {
