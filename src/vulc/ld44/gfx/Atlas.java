@@ -14,7 +14,7 @@ public abstract class Atlas {
 
 	public static void init() {
 		try {
-			atlas = new Bitmap(ImageIO.read(Atlas.class.getResourceAsStream("/gfx/atlas.png")));
+			atlas = new Bitmap(ImageIO.read(Atlas.class.getResourceAsStream("/gfx/atlas.png"))).getScaled(2);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

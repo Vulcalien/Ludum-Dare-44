@@ -6,6 +6,7 @@ import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.input.KeyBinding;
+import vulc.ld44.item.ArmorItem;
 import vulc.ld44.item.Inventory;
 import vulc.ld44.item.Item;
 import vulc.ld44.level.entity.particle.TestParticle;
@@ -16,9 +17,10 @@ public class Player extends Mob {
 
 	public Inventory inventory = new Inventory(10);
 	public Item handheld = null;
+	public ArmorItem armor = new ArmorItem("a", 1, 0, 50);
 
-	public int range = 16;
-	public int yo = 1;
+	public int range = 32;
+	public int yo = 2;
 
 	public int xWatched, yWatched;
 
@@ -32,10 +34,10 @@ public class Player extends Mob {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
 		this.y = (yt << T_SIZE) + (1 << T_SIZE) / 2;
 
-		xr = 6;
-		yr = 7;
+		xr = 12;
+		yr = 14;
 
-		hp = 10;
+		hp = 1000;
 	}
 
 	public void init() {
@@ -53,13 +55,15 @@ public class Player extends Mob {
 
 		if(talkingToShopkeeper) return;
 
-		int speed = 1;
+		int speed = 2;
 
 		int xm = 0, ym = 0;
-		if(KeyBinding.W.isKeyDown()) ym -= speed;
-		if(KeyBinding.A.isKeyDown()) xm -= speed;
-		if(KeyBinding.S.isKeyDown()) ym += speed;
-		if(KeyBinding.D.isKeyDown()) xm += speed;
+		if(xKnockback == 0 && yKnockback == 0) {
+			if(KeyBinding.W.isKeyDown()) ym -= speed;
+			if(KeyBinding.A.isKeyDown()) xm -= speed;
+			if(KeyBinding.S.isKeyDown()) ym += speed;
+			if(KeyBinding.D.isKeyDown()) xm += speed;
+		}
 
 		move(xm, ym);
 
@@ -83,7 +87,7 @@ public class Player extends Mob {
 		if(!canBeAttacked() && tickCount / 5 % 2 == 0) return;
 
 		Bitmap sprite = Atlas.getTexture(dir, moveCount / 10 % 2);
-		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
+		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 2);
 	}
 
 	public boolean[] move(int xm, int ym) {
@@ -97,10 +101,10 @@ public class Player extends Mob {
 
 		//try entity
 		boolean done = false;
-		if(dir == 0) done = interactOnEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
-		else if(dir == 1) done = interactOnEntities(x - range, y - 8 + yo, x - range + 8, y + 8 + yo);
-		else if(dir == 2) done = interactOnEntities(x - 8, y + range - 8 + yo, x + 8, y + range + yo);
-		else if(dir == 3) done = interactOnEntities(x + range - 8, y - 8 + yo, x + range, y + 8 + yo);
+		if(dir == 0) done = interactOnEntities(x - 16, y - range + yo, x + 16, y - range + 16 + yo);
+		else if(dir == 1) done = interactOnEntities(x - range, y - 16 + yo, x - range + 16, y + 16 + yo);
+		else if(dir == 2) done = interactOnEntities(x - 16, y + range - 16 + yo, x + 16, y + range + yo);
+		else if(dir == 3) done = interactOnEntities(x + range - 16, y - 16 + yo, x + range, y + 16 + yo);
 		if(done) return;
 
 		//try tile
@@ -122,15 +126,15 @@ public class Player extends Mob {
 	public void attack() {
 		if(handheld != null && !handheld.mayAttack()) return;
 
-		if(tickCount - lastAttack < 30) return;
+		if(tickCount - lastAttack < 20) return;
 		lastAttack = tickCount;
 
 		int range = this.range + (handheld != null ? handheld.getAttackRangeBonus() : 0);
 
-		if(dir == 0) attackEntities(x - 8, y - range + yo, x + 8, y - range + 8 + yo);
-		else if(dir == 1) attackEntities(x - range, y - 8 + yo, x - range + 8, y + 8 + yo);
-		else if(dir == 2) attackEntities(x - 8, y + range - 8 + yo, x + 8, y + range + yo);
-		else if(dir == 3) attackEntities(x + range - 8, y - 8 + yo, x + range, y + 8 + yo);
+		if(dir == 0) attackEntities(x - 16, y - range + yo, x + 16, y - range + 16 + yo);
+		else if(dir == 1) attackEntities(x - range, y - 16 + yo, x - range + 16, y + 16 + yo);
+		else if(dir == 2) attackEntities(x - 16, y + range - 16 + yo, x + 16, y + range + yo);
+		else if(dir == 3) attackEntities(x + range - 16, y - 16 + yo, x + range, y + 16 + yo);
 
 		Sound.ATTACK.play();
 	}
@@ -159,8 +163,11 @@ public class Player extends Mob {
 	public void touchedBy(Entity e) {
 		if(e instanceof Enemy) {
 			Enemy enemy = (Enemy) e;
-			if(onAttack(enemy.getAttackDamage(), enemy.dir, 16, enemy, null)) {
+			int dmg = enemy.getAttackDamage();
+			if(armor != null) dmg = dmg * (100 - armor.getProtection()) / 100;
+			if(onAttack(dmg, enemy.dir, 16, enemy, null)) {
 				lastAttacked = tickCount;
+				if(!removed) Sound.PLAYER_HURT.play();
 			}
 		}
 	}
@@ -171,7 +178,7 @@ public class Player extends Mob {
 	}
 
 	public boolean canBeAttacked() {
-		return tickCount - lastAttacked >= 50;
+		return tickCount - lastAttacked >= 90;
 	}
 
 	public boolean obtainItem(Item item) {

@@ -28,15 +28,17 @@ public class SellTile extends Tile {
 		Trade trade = getTrade(level, xt, yt);
 		if(trade != null) {
 			trade.item.renderSprite(screen, (xt << T_SIZE) + 4, (yt << T_SIZE));
-			if(level.player.xWatched == xt && level.player.yWatched == yt) {
+			if(level.awakenedEnemies == 0 && level.player.xWatched == xt && level.player.yWatched == yt) {
 				String cost = trade.cost + "";
-				Bitmap heart = Screen.heartSprite;
+				Bitmap heart = Screen.bloodSprite;
 
-				int w = Screen.FONT.lengthOf(cost) + 1 + heart.width;
+				int w = Screen.LARGE.lengthOf(cost) + 1 + heart.width;
 				int x0 = (xt << T_SIZE) + (1 << T_SIZE) / 2 - w / 2;
 				int y0 = (yt << T_SIZE) - (1 << T_SIZE) / 2;
-				screen.write(cost, 0, x0, y0 - Screen.FONT.getHeight() / 2);
-				screen.renderSprite(heart, x0 + Screen.FONT.lengthOf(cost), y0 - heart.height / 2);
+				screen.writeLarge(cost, 0xffffff, x0, y0 - Screen.LARGE.getHeight() / 2);
+				screen.renderSprite(heart, x0 + Screen.LARGE.lengthOf(cost), y0 - heart.height / 2);
+
+				screen.writeCentred(trade.item.name, 0xffffff, (xt << T_SIZE) + (1 << T_SIZE) / 2, (yt - 1 << T_SIZE));
 			}
 		}
 	}

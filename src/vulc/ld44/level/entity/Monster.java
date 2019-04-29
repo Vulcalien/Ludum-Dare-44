@@ -20,8 +20,8 @@ public class Monster extends Enemy {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
 		this.y = (yt << T_SIZE) + (1 << T_SIZE) / 2;
 
-		xr = 6;
-		yr = 7;
+		xr = 12;
+		yr = 14;
 
 		hp = 3;
 	}
@@ -47,7 +47,7 @@ public class Monster extends Enemy {
 			int xd = target.x - x;
 			int yd = target.y - y;
 
-			int speed = tickCount % 2 == 0 ? 0 : 1;
+			int speed = 1;
 			int xm = 0, ym = 0;
 
 			if(tickCount - lastAttacked >= 10) {
@@ -69,10 +69,11 @@ public class Monster extends Enemy {
 		if(!hasLight) return;
 
 		Bitmap sprite = Atlas.getTexture(dir, 3 + moveCount / 10 % 2);
-		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
+		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 2);
 
 		if(animation != null) {
-			screen.writeCentred("!", 0xff0000, x, y - (1 << T_SIZE));
+			screen.writeCentredLarge("!", 0xcc0000, x + 1, y - (1 << T_SIZE) + 1);
+			screen.writeCentredLarge("!", 0xff0000, x, y - (1 << T_SIZE));
 		}
 	}
 
@@ -89,13 +90,14 @@ public class Monster extends Enemy {
 	public boolean onAttack(int dmg, int attackDir, int knockback, Entity attacker, Item item) {
 		if(super.onAttack(dmg, attackDir, knockback, attacker, item)) {
 			lastAttacked = tickCount;
+			Sound.MONSTER_HURT.play();
 			return true;
 		}
 		return false;
 	}
 
 	public int getAttackDamage() {
-		return 4;
+		return 150;
 	}
 
 	public void touchedBy(Entity e) {

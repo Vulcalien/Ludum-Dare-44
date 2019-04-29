@@ -26,8 +26,8 @@ public class Shopkeeper extends Mob {
 		this.x = (xt << T_SIZE) + (1 << T_SIZE) / 2;
 		this.y = (yt << T_SIZE) + (1 << T_SIZE) / 2;
 
-		xr = 6;
-		yr = 7;
+		xr = 12;
+		yr = 14;
 	}
 
 	public void tick() {
@@ -50,15 +50,18 @@ public class Shopkeeper extends Mob {
 		if(!hasLight) return;
 
 		Bitmap sprite = Atlas.getTexture(tickCount / 20 % 2, 6);
-		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 1);
+		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2 - 2);
 
 		if(!level.talkedToShopkeeper && level.awakenedEnemies == 0 && !talkingToPlayer) {
 			Bitmap arrow = Atlas.getTexture(tickCount / 20 % 2, 7);
-			screen.renderSprite(arrow, x - arrow.width / 2, y - (1 << T_SIZE) - arrow.height / 2 - 1);
+			screen.renderSprite(arrow, x - arrow.width / 2, y - (1 << T_SIZE) - arrow.height / 2 - 2);
 		}
 
 		if(talkingToPlayer) {
-			if(dialogTime < dialog.length) screen.writeCentred(dialog[dialogTime], 0xffffff, x, y - (1 << T_SIZE));
+			if(dialogTime < dialog.length) {
+				screen.writeCentred(dialog[dialogTime], 0x888888, x + 1, y - (1 << T_SIZE) + 1);
+				screen.writeCentred(dialog[dialogTime], 0xffffff, x, y - (1 << T_SIZE));
+			}
 		}
 	}
 

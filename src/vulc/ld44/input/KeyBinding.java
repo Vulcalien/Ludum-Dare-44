@@ -14,7 +14,13 @@ public abstract class KeyBinding {
 	D = new Key(),
 
 	INTERACT = new Key(),
-	ATTACK = new Key();
+	ATTACK = new Key(),
+
+	OPEN_INVENTORY = new Key(),
+
+	MENU = new Key(),
+	ENTER = new Key(),
+	SPACE = new Key();
 
 	public static void setupDefaultBindings() {
 		W.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_W);
@@ -24,6 +30,12 @@ public abstract class KeyBinding {
 
 		INTERACT.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_L);
 		ATTACK.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_K);
+
+		OPEN_INVENTORY.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_I);
+
+		MENU.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_ESCAPE);
+		ENTER.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_ENTER);
+		SPACE.setKeyBinding(KeyType.KEYBOARD, KeyEvent.VK_SPACE);
 	}
 
 	public static void init() {

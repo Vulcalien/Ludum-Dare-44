@@ -25,7 +25,9 @@ public abstract class Mob extends Entity {
 			else if(ym > 0) dir = 2;
 		}
 
+		//BUG somehow the knockback doesn't work when moving
 		boolean[] result = super.move(xm + xKnockback, ym + yKnockback);
+
 		xKnockback = 0;
 		yKnockback = 0;
 		return result;

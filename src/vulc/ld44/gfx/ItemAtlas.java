@@ -12,7 +12,7 @@ public class ItemAtlas {
 
 	public static void init() {
 		try {
-			atlas = new Bitmap(ImageIO.read(Atlas.class.getResourceAsStream("/gfx/item_atlas.png")));
+			atlas = new Bitmap(ImageIO.read(Atlas.class.getResourceAsStream("/gfx/item_atlas.png"))).getScaled(2);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -23,7 +23,7 @@ public class ItemAtlas {
 	}
 
 	public static Bitmap getTexture(int xs, int ys, int w, int h) {
-		return atlas.getSubimage(xs << 3, ys << 3, w << 3, h << 3);
+		return atlas.getSubimage(xs << 4, ys << 4, w << 4, h << 4);
 	}
 
 }

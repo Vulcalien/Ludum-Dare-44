@@ -10,9 +10,10 @@ import vulc.ld44.level.entity.Player;
 public class Screen extends Bitmap {
 
 	public static final Font FONT = new Font(Screen.class.getResourceAsStream("/fonts/non-monospaced.lwfont"));
+	public static final Font LARGE = FONT.getScaled(2);
 
 	private static final int BACKGROUND_COLOR = 0x000000;
-	public static Bitmap heartSprite;
+	public static Bitmap bloodSprite;
 
 	private final Game game;
 
@@ -26,7 +27,7 @@ public class Screen extends Bitmap {
 	}
 
 	public static void init() {
-		heartSprite = Atlas.getSubimage(64, 0, 11, 10);
+		bloodSprite = Atlas.getSubimage(128, 0, 22, 20);
 	}
 
 	public void render() {
@@ -34,30 +35,29 @@ public class Screen extends Bitmap {
 
 		boolean levelShouldRender = true;
 		Menu menu = game.menu;
-		if(menu != null) {
-			menu.render(this);
-			levelShouldRender = !menu.blocksLevelRender();
-		}
+		if(menu != null) levelShouldRender = !menu.blocksLevelRender();
 
 		if(levelShouldRender) {
 			Level level = game.level;
 			if(level != null) {
-				level.render(this, 10, 10);
+				level.render(this, 10, 8);
 			}
 
 			renderPlayerGui();
 		}
+
+		if(menu != null) menu.render(this);
 	}
 
 	public void renderPlayerGui() {
 		Player player = game.player;
 
-		fill(160, 0, 176, 160, 0x666666);
-		fill(0, 160, 176, 176, 0x666666);
+		fill(320, 0, 352, 256, 0x666666);
+		fill(0, 256, 352, 288, 0x666666);
 
-		String hp = "HP: " + player.hp;
-		writeAbs(hp, 0x000000, 1, 161);
-		draw(heartSprite, 2 + FONT.lengthOf(hp), 161);
+		String hp = "HP: " + (player.hp);
+		writeAbsLarge(hp, 0x000000, 1, 257);
+		draw(bloodSprite, 2 + LARGE.lengthOf(hp), 257);
 
 		//TODO render inventory
 	}
@@ -79,8 +79,28 @@ public class Screen extends Bitmap {
 		write(text, color, x - FONT.lengthOf(text) / 2, y - FONT.getHeight() / 2);
 	}
 
+	public void writeCentredAbs(String text, int color, int x, int y) {
+		writeAbs(text, color, x - FONT.lengthOf(text) / 2, y - FONT.getHeight() / 2);
+	}
+
 	public void writeAbs(String text, int color, int x, int y) {
 		FONT.write(text, color, this, x, y);
+	}
+
+	public void writeLarge(String text, int color, int x, int y) {
+		LARGE.write(text, color, this, x - xOffset, y - yOffset);
+	}
+
+	public void writeCentredLarge(String text, int color, int x, int y) {
+		writeLarge(text, color, x - LARGE.lengthOf(text) / 2, y - LARGE.getHeight() / 2);
+	}
+
+	public void writeAbsLarge(String text, int color, int x, int y) {
+		LARGE.write(text, color, this, x, y);
+	}
+
+	public void writeCentredAbsLarge(String text, int color, int x, int y) {
+		writeAbsLarge(text, color, x - LARGE.lengthOf(text) / 2, y - LARGE.getHeight() / 2);
 	}
 
 }

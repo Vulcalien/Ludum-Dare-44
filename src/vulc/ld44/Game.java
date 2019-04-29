@@ -13,6 +13,7 @@ import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.ItemAtlas;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.gfx.menu.Menu;
+import vulc.ld44.gfx.menu.PauseMenu;
 import vulc.ld44.input.InputHandler;
 import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.ItemList;
@@ -28,13 +29,13 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	//the size of the game screen (not the JFrame)
-	public static final int WIDTH = 176, HEIGHT = 176;
+	public static final int WIDTH = 352, HEIGHT = 288;
 
 	//the number of JFrame's pixels that correspond to 1 pixel of the game screen
-	public static final int SCALE = 3;
+	public static final int SCALE = 2;
 
 	//Tile size: the number of pixels of a tile is 2^T_SIZE
-	public static final int T_SIZE = 4;
+	public static final int T_SIZE = 5;
 
 	private final BufferedImage img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private final int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
@@ -82,14 +83,19 @@ public class Game extends Canvas implements Runnable {
 		player = new Player(level.xSpawn, level.ySpawn);
 		level.addEntity(player);
 
+		//DEBUG hidden menu
+//		menu = new StartMenu(this);
+
 		Debug.init(this);
 	}
 
 	private void tick() {
 		boolean levelShouldTick = true;
 		if(menu != null) {
-			menu.tick();
 			levelShouldTick = !menu.blocksLevelTick();
+			menu.tick();
+		} else {
+			if(KeyBinding.MENU.isPressed()) menu = new PauseMenu(this);
 		}
 		if(levelShouldTick && level != null) {
 			level.tick();

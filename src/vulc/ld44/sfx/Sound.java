@@ -6,7 +6,16 @@ import javax.sound.sampled.Clip;
 
 public class Sound {
 
-	public static enum Volume {ON, OFF}
+	public static enum Volume {
+		ON("ON"), OFF("OFF");
+
+		public final String text;
+
+		private Volume(String text) {
+			this.text = text;
+		}
+	}
+
 	public static Volume volume = Volume.OFF;
 
 	public static final Sound
@@ -15,7 +24,9 @@ public class Sound {
 	FOOTSTEP = new Sound("/sfx/footstep.wav"),
 	GAIN_FOCUS = new Sound("/sfx/gain_focus.wav"),
 	PLAYER_DEATH = new Sound("/sfx/player_death.wav"),
-	BUY = new Sound("/sfx/buy.wav");
+	BUY = new Sound("/sfx/buy.wav"),
+	PLAYER_HURT = new Sound("/sfx/player_hurt.wav"),
+	MONSTER_HURT = new Sound("/sfx/monster_hurt.wav");
 
 	private Clip clip;
 
