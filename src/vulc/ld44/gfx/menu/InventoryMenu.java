@@ -6,19 +6,23 @@ import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.Inventory;
 import vulc.ld44.item.Item;
 import vulc.ld44.item.WeaponItem;
+import vulc.ld44.level.entity.Player;
+import vulc.ld44.sfx.Sound;
 
 public class InventoryMenu extends Menu {
 
-	public Inventory inventory;
+	public final Player player;
+	public final Inventory inventory;
 	public int focusedItem = 0;
 
-	public InventoryMenu(Game game, Inventory inventory) {
+	public InventoryMenu(Game game, Player player, Inventory inventory) {
 		super(game);
+		this.player = player;
 		this.inventory = inventory;
 	}
 
 	public void tick() {
-		if(KeyBinding.OPEN_INVENTORY.isPressed()) game.menu = null;
+		if(KeyBinding.OPEN_INVENTORY.isPressed() || KeyBinding.MENU.isPressed()) game.menu = null;
 		if(KeyBinding.A.isPressed()) {
 			if(focusedItem > 0) focusedItem--;
 		}
@@ -30,6 +34,16 @@ public class InventoryMenu extends Menu {
 		}
 		if(KeyBinding.S.isPressed()) {
 			if(focusedItem + 6 < inventory.size) focusedItem += 6;
+		}
+
+		if(KeyBinding.INTERACT.isPressed()) {
+			Item focused = inventory.get(focusedItem);
+			if(focused instanceof WeaponItem) {
+				WeaponItem old = player.weapon;
+				player.weapon = (WeaponItem) focused;
+				inventory.set(focusedItem, old);
+				Sound.EQUIP.play();
+			}
 		}
 	}
 

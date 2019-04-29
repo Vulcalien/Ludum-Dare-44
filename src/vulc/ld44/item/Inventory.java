@@ -5,6 +5,7 @@ import java.util.List;
 
 import vulc.ld44.Game;
 import vulc.ld44.gfx.menu.InventoryMenu;
+import vulc.ld44.level.entity.Player;
 
 public class Inventory {
 
@@ -33,6 +34,10 @@ public class Inventory {
 		return null;
 	}
 
+	public void set(int index, Item item) {
+		items.set(index, item);
+	}
+
 	public void remove(Item item) {
 		items.remove(item);
 	}
@@ -41,8 +46,8 @@ public class Inventory {
 		items.remove(index);
 	}
 
-	public void openMenu(Game game) {
-		game.menu = new InventoryMenu(game, this);
+	public void openMenu(Game game, Player player) {
+		game.menu = new InventoryMenu(game, player, this);
 	}
 
 }

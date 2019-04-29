@@ -3,6 +3,7 @@ package vulc.ld44.item;
 import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.ItemAtlas;
 import vulc.ld44.gfx.Screen;
+import vulc.ld44.level.entity.Player;
 
 public abstract class Item {
 
@@ -37,6 +38,10 @@ public abstract class Item {
 
 	public int getAttackRangeBonus() {
 		return 0;
+	}
+
+	public boolean use(Player player, Inventory inventory) {
+		return false;
 	}
 
 }

@@ -85,7 +85,7 @@ public class Player extends Mob {
 		if(KeyBinding.INTERACT.isPressed()) interact();
 		if(KeyBinding.ATTACK.isKeyDown()) attack();
 
-		if(KeyBinding.OPEN_INVENTORY.isPressed()) inventory.openMenu(level.game);
+		if(KeyBinding.OPEN_INVENTORY.isPressed()) inventory.openMenu(level.game, this);
 	}
 
 	public void render(Screen screen) {

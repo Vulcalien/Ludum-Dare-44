@@ -23,7 +23,7 @@ public class Monster extends Enemy {
 		xr = 12;
 		yr = 14;
 
-		hp = 350 + random.nextInt(501);
+		hp = 350 + random.nextInt(250);
 	}
 
 	public void tick() {

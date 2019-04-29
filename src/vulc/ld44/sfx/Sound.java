@@ -26,7 +26,8 @@ public class Sound {
 	PLAYER_HURT = new Sound("/sfx/player_hurt.wav"),
 	MONSTER_HURT = new Sound("/sfx/monster_hurt.wav"),
 	SHOPKEEPER_DIALOG = new Sound("/sfx/shopkeeper_dialog.wav"),
-	GAIN_BLOOD = new Sound("/sfx/gain_blood.wav");
+	GAIN_BLOOD = new Sound("/sfx/gain_blood.wav"),
+	EQUIP = new Sound("/sfx/equip.wav");
 
 	private Clip clip;
 
