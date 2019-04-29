@@ -23,7 +23,7 @@ public class Monster extends Enemy {
 		xr = 12;
 		yr = 14;
 
-		hp = 3;
+		hp = 350 + random.nextInt(501);
 	}
 
 	public void tick() {
@@ -106,7 +106,10 @@ public class Monster extends Enemy {
 
 	public void remove() {
 		super.remove();
-		level.addEntity(new BloodDrop(x, y, 50 + random.nextInt(100)));
+		int drops = 1 + random.nextInt(4);
+		for(int i = 0; i < drops; i++) {
+			level.addEntity(new BloodDrop(x, y, 25 + random.nextInt(41)));
+		}
 	}
 
 }

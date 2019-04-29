@@ -20,14 +20,14 @@ public class SellTile extends Tile {
 	public void render(Screen screen, Level level, int xt, int yt) {
 		Tile underTile = level.getTile(xt, yt + 1);
 		if(underTile != Tile.SELL) {
-			screen.renderSprite(Atlas.getTexture(11, 2), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(14, 4), xt << T_SIZE, yt << T_SIZE);
 		} else {
-			screen.renderSprite(Atlas.getTexture(12, 2), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(13, 4), xt << T_SIZE, yt << T_SIZE);
 		}
 
 		Trade trade = getTrade(level, xt, yt);
 		if(trade != null) {
-			trade.item.renderSprite(screen, (xt << T_SIZE) + 4, (yt << T_SIZE));
+			trade.item.renderSprite(screen, (xt << T_SIZE) + (1 << T_SIZE) / 4, (yt << T_SIZE));
 			if(level.awakenedEnemies == 0 && level.player.xWatched == xt && level.player.yWatched == yt) {
 				String cost = trade.cost + "";
 				Bitmap heart = Screen.bloodSprite;

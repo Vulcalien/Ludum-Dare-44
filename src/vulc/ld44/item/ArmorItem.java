@@ -2,7 +2,7 @@ package vulc.ld44.item;
 
 public class ArmorItem extends Item {
 
-	public int def;
+	private final int def;
 
 	public ArmorItem(String name, int xs, int ys, int def) {
 		super(name, xs, ys);

@@ -9,6 +9,7 @@ import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.ArmorItem;
 import vulc.ld44.item.Inventory;
 import vulc.ld44.item.Item;
+import vulc.ld44.item.WeaponItem;
 import vulc.ld44.level.entity.particle.TestParticle;
 import vulc.ld44.level.tile.Tile;
 import vulc.ld44.sfx.Sound;
@@ -17,8 +18,8 @@ public class Player extends Mob {
 
 	public static final int MAX_HP = 1000;
 
-	public Inventory inventory = new Inventory(10);
-	public Item handheld = null;
+	public Inventory inventory = new Inventory(12);
+	public WeaponItem weapon = null;
 	public ArmorItem armor = null;
 
 	public int range = 32;
@@ -95,7 +96,7 @@ public class Player extends Mob {
 	}
 
 	public void interact() {
-		if(handheld != null && !handheld.mayInteract()) return;
+		if(weapon != null && !weapon.mayInteract()) return;
 
 		//try entity
 		boolean done = false;
@@ -107,7 +108,7 @@ public class Player extends Mob {
 
 		//try tile
 		Tile tile = level.getTile(xWatched, yWatched);
-		if(tile != null) tile.interactOn(level, xWatched, yWatched, this, handheld);
+		if(tile != null) tile.interactOn(level, xWatched, yWatched, this, weapon);
 	}
 
 	public boolean interactOnEntities(int x0, int y0, int x1, int y1) {
@@ -116,18 +117,18 @@ public class Player extends Mob {
 		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			if(e.onInteract(this, handheld)) return true;
+			if(e.onInteract(this, weapon)) return true;
 		}
 		return false;
 	}
 
 	public void attack() {
-		if(handheld != null && !handheld.mayAttack()) return;
+		if(weapon != null && !weapon.mayAttack()) return;
 
 		if(tickCount - lastAttack < 20) return;
 		lastAttack = tickCount;
 
-		int range = this.range + (handheld != null ? handheld.getAttackRangeBonus() : 0);
+		int range = this.range + (weapon != null ? weapon.getAttackRangeBonus() : 0);
 
 		if(dir == 0) attackEntities(x - 16, y - range + yo, x + 16, y - range + 16 + yo);
 		else if(dir == 1) attackEntities(x - range, y - 16 + yo, x - range + 16, y + 16 + yo);
@@ -145,15 +146,15 @@ public class Player extends Mob {
 			Entity e = entities.get(i);
 			if(e instanceof Mob) {
 				Mob mob = (Mob) e;
-				mob.onAttack(getAttackDamage(), dir, 16, this, handheld);
+				mob.onAttack(getAttackDamage(), dir, 16, this, weapon);
 			}
 		}
 	}
 
 	public int getAttackDamage() {
 		int dmg = 1;
-		if(handheld != null) {
-			dmg += handheld.getDamageBonus();
+		if(weapon != null) {
+			dmg += weapon.getDamageBonus();
 		}
 		return dmg;
 	}

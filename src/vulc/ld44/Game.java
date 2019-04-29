@@ -81,6 +81,7 @@ public class Game extends Canvas implements Runnable {
 
 		level = LevelLoader.loadLevel(this, "/levels/debug.png");
 		player = new Player(level.xSpawn, level.ySpawn);
+		player.weapon = ItemList.WOODEN_SWORD;
 		level.addEntity(player);
 
 		//DEBUG hidden menu

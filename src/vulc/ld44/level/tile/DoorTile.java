@@ -22,13 +22,13 @@ public class DoorTile extends Tile {
 
 	public void render(Screen screen, Level level, int xt, int yt) {
 		Tile.FLOOR.render(screen, level, xt, yt);
-		int tOffset = level.getData(xt, yt) == 0 ? 0 : 1;
+		int tOffset = level.getData(xt, yt) == 0 ? 1 : 0;
 
 		Tile underTile = level.getTile(xt, yt + 1);
 		if(underTile != null && underTile.connectsToWall) {
-			screen.renderSprite(Atlas.getTexture(11 + tOffset, 0), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(14, 2 + tOffset), xt << T_SIZE, yt << T_SIZE);
 		} else {
-			screen.renderSprite(Atlas.getTexture(11 + tOffset, 1), xt << T_SIZE, yt << T_SIZE);
+			screen.renderSprite(Atlas.getTexture(13, 2 + tOffset), xt << T_SIZE, yt << T_SIZE);
 		}
 	}
 

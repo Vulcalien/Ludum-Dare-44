@@ -1,5 +1,6 @@
 package vulc.ld44.item;
 
+import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.ItemAtlas;
 import vulc.ld44.gfx.Screen;
 
@@ -14,8 +15,12 @@ public abstract class Item {
 		this.ys = ys;
 	}
 
+	public Bitmap getSprite() {
+		return ItemAtlas.getTexture(xs, ys);
+	}
+
 	public void renderSprite(Screen screen, int x, int y) {
-		screen.renderSprite(ItemAtlas.getTexture(xs, ys), x, y);
+		screen.renderSprite(getSprite(), x, y);
 	}
 
 	public boolean mayAttack() {

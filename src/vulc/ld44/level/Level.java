@@ -129,6 +129,7 @@ public class Level {
 	public void addEntity(Entity e) {
 		entities.add(e);
 		insertEntityInTile(e, e.x >> T_SIZE, e.y >> T_SIZE);
+		if(hasLight(e.x >> T_SIZE, e.y >> T_SIZE)) e.receiveLight();
 		e.removed = false;
 		e.level = this;
 		e.init();

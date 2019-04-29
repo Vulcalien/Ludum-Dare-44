@@ -14,7 +14,7 @@ public abstract class Entity {
 
 	public static final int T_SIZE = Game.T_SIZE;
 
-	public Random random = new Random();
+	public final Random random = new Random();
 
 	public Level level;
 	public boolean removed = false;

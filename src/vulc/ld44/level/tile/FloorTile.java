@@ -10,8 +10,20 @@ public class FloorTile extends Tile {
 		super(id);
 	}
 
+	public void init(Level level, int xt, int yt) {
+		if(random.nextInt(10) == 0) {
+			level.setData((byte) 1, xt, yt);
+		} else {
+			level.setData((byte) 0, xt, yt);
+		}
+	}
+
 	public void render(Screen screen, Level level, int xt, int yt) {
-		screen.renderSprite(Atlas.getTexture(14, 0), xt << T_SIZE, yt << T_SIZE);
+		if(level.getTile(xt, yt) != Tile.FLOOR || level.getData(xt, yt) == 0) {
+			screen.renderSprite(Atlas.getTexture(14, 0), xt << T_SIZE, yt << T_SIZE);
+		} else {
+			screen.renderSprite(Atlas.getTexture(13, 0), xt << T_SIZE, yt << T_SIZE);
+		}
 	}
 
 }

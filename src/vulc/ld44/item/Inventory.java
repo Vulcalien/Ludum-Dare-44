@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vulc.ld44.Game;
+import vulc.ld44.gfx.menu.InventoryMenu;
 
 public class Inventory {
 
@@ -27,12 +28,21 @@ public class Inventory {
 		return false;
 	}
 
+	public Item get(int index) {
+		if(index < items.size()) return items.get(index);
+		return null;
+	}
+
 	public void remove(Item item) {
 		items.remove(item);
 	}
 
+	public void remove(int index) {
+		items.remove(index);
+	}
+
 	public void openMenu(Game game) {
-//		game.menu = new InventoryMenu(game, this);
+		game.menu = new InventoryMenu(game, this);
 	}
 
 }

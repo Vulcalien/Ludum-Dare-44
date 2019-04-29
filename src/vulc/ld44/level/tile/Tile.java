@@ -1,5 +1,7 @@
 package vulc.ld44.level.tile;
 
+import java.util.Random;
+
 import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 import vulc.ld44.item.Item;
@@ -19,6 +21,7 @@ public abstract class Tile {
 	DOOR = new DoorTile(2),
 	SELL = new SellTile(3);
 
+	public final Random random = new Random();
 	public final byte id;
 	public boolean connectsToWall = false;
 

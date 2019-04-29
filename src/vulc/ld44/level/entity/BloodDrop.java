@@ -43,6 +43,9 @@ public class BloodDrop extends Entity {
 	}
 
 	public void render(Screen screen) {
+		if(!hasLight) return;
+		if(lifeTime < 180 && lifeTime / 10 % 2 != 0) return;
+
 		Bitmap sprite = Screen.bloodSprite;
 		screen.renderSprite(sprite, x - sprite.width / 2, y - sprite.height / 2);
 	}
