@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Copyright (C) 2019 Vulcalien
+ * This code is licenced under MIT Licence (see LICENCE.txt)
+ ******************************************************************************/
 package vulc.ld44.animation;
 
 import vulc.ld44.Game;

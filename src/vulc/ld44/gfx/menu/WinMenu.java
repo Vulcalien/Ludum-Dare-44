@@ -2,23 +2,20 @@
  * Copyright (C) 2019 Vulcalien
  * This code is licenced under MIT Licence (see LICENCE.txt)
  ******************************************************************************/
-package vulc.ld44.level.entity.particle;
+package vulc.ld44.gfx.menu;
 
-import vulc.bitmap.Bitmap;
+import vulc.ld44.Game;
 import vulc.ld44.gfx.Screen;
 
-public class TestParticle extends Particle {
+public class WinMenu extends Menu {
 
-	private final int w, h;
-
-	public TestParticle(int x, int y, int w, int h) {
-		super(15, x, y);
-		this.w = w;
-		this.h = h;
+	public WinMenu(Game game) {
+		super(game);
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite(new Bitmap(w, h, 0xffffff), x, y);
+		screen.writeCentredAbs("YOU WON =D", 0xffffff, screen.width / 2, screen.height / 2);
+		screen.writeAbs("Made by Vulcalien", 0xdddddd, 1, screen.height - 1 - Screen.FONT.getHeight());
 	}
 
 }

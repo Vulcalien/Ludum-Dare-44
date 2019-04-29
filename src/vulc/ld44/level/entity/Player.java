@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Copyright (C) 2019 Vulcalien
+ * This code is licenced under MIT Licence (see LICENCE.txt)
+ ******************************************************************************/
 package vulc.ld44.level.entity;
 
 import java.util.List;
@@ -5,6 +9,8 @@ import java.util.List;
 import vulc.bitmap.Bitmap;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
+import vulc.ld44.gfx.menu.LoseMenu;
+import vulc.ld44.gfx.menu.WinMenu;
 import vulc.ld44.input.KeyBinding;
 import vulc.ld44.item.ArmorItem;
 import vulc.ld44.item.Inventory;
@@ -52,7 +58,7 @@ public class Player extends Mob {
 		tickCount++;
 
 		if(wonLevel) {
-//			level.game.menu = new WinMenu(level.game);
+			level.game.menu = new WinMenu(level.game);
 			return;
 		}
 
@@ -179,8 +185,7 @@ public class Player extends Mob {
 	public void remove() {
 		super.remove();
 		Sound.PLAYER_DEATH.play();
-		//TODO add lose menu
-//		level.game.menu = new LoseMenu(level.game);
+		level.game.menu = new LoseMenu(level.game);
 	}
 
 	public boolean canBeAttacked() {

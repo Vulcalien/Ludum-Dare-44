@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Copyright (C) 2019 Vulcalien
+ * This code is licenced under MIT Licence (see LICENCE.txt)
+ ******************************************************************************/
 package vulc.ld44;
 
 import java.awt.Canvas;
@@ -67,7 +71,6 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
 
 	private void init() {
 		InputHandler.init(this);

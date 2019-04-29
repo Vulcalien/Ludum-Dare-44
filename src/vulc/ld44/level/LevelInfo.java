@@ -1,8 +1,11 @@
+/*******************************************************************************
+ * Copyright (C) 2019 Vulcalien
+ * This code is licenced under MIT Licence (see LICENCE.txt)
+ ******************************************************************************/
 package vulc.ld44.level;
 
 import static vulc.ld44.item.ItemList.*;
 
-@SuppressWarnings("unused")
 public abstract class LevelInfo {
 
 	public static final String[][] SHOPKEEPER_DIALOGS = new String[][] {

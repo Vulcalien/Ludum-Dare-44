@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * Copyright (C) 2019 Vulcalien
+ * This code is licenced under MIT Licence (see LICENCE.txt)
+ ******************************************************************************/
 package vulc.ld44.gfx.menu;
 
 import vulc.ld44.Game;
@@ -30,6 +34,9 @@ public class StartMenu extends ListMenu {
 			else if(i == 2)
 				screen.writeAbs(button.text, color, screen.width - margin - Screen.FONT.lengthOf(button.text), screen.height - margin - Screen.FONT.getHeight());
 		}
+
+		String copyright = "Copyright (C) 2019 Vulcalien";
+		screen.writeAbs(copyright, 0x707070, screen.width - margin - Screen.FONT.lengthOf(copyright), 2 * margin + Screen.FONT.getHeight());
 
 		String pressEnter = "Press Enter to continue";
 		screen.writeAbs(pressEnter, 0x707070, screen.width - margin - Screen.FONT.lengthOf(pressEnter), margin);
