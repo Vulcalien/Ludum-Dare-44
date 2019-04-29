@@ -11,7 +11,7 @@ public class WeaponItem extends Item {
 		this.rangeBonus = rangeBonus;
 	}
 
-	public int getDamageBonus() {
+	public int getDamage() {
 		return dmg;
 	}
 

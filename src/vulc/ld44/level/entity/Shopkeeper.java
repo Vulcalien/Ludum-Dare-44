@@ -74,10 +74,10 @@ public class Shopkeeper extends Mob {
 			else id = level.shopkeeper.id + 1;
 			level.shopkeeper = this;
 
-			level.talkedToShopkeeper = false;
-
 			dialog = LevelInfo.SHOPKEEPER_DIALOGS[id];
 			trades = LevelInfo.SHOPKEEPER_ITEMS[id];
+
+			if(dialog.length != 0) level.talkedToShopkeeper = false;
 
 			//init sellTiles
 			for(int i = 0; i < level.sellTiles.size(); i++) {

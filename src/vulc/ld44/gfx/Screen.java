@@ -67,7 +67,7 @@ public class Screen extends Bitmap {
 			String label = "Weapon";
 			String dmg = "";
 			if(weapon != null) {
-				dmg = "dmg: " + weapon.getDamageBonus();
+				dmg = "dmg: " + weapon.getDamage();
 			}
 
 			int contWidth = 19 + Math.max(FONT.lengthOf(label), FONT.lengthOf(dmg));

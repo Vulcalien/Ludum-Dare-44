@@ -118,8 +118,6 @@ public class Player extends Mob {
 	}
 
 	public boolean interactOnEntities(int x0, int y0, int x1, int y1) {
-		level.addEntity(new TestParticle(x0, y0, x1 - x0, y1 - y0));
-
 		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
@@ -158,9 +156,9 @@ public class Player extends Mob {
 	}
 
 	public int getAttackDamage() {
-		int dmg = 1;
+		int dmg = 10;
 		if(weapon != null) {
-			dmg += weapon.getDamageBonus();
+			dmg = weapon.getDamage();
 		}
 		return dmg;
 	}

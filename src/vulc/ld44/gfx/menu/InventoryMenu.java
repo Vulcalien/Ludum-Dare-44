@@ -99,7 +99,7 @@ public class InventoryMenu extends Menu {
 		if(focused instanceof WeaponItem) {
 			offset += lineDistance;
 
-			screen.writeAbs("DMG   : " + focused.getDamageBonus(), 0xffffff, x0 + margin, offset);
+			screen.writeAbs("DMG   : " + focused.getDamage(), 0xffffff, x0 + margin, offset);
 			offset += lineDistance;
 
 			screen.writeAbs("RANGE : " + focused.getAttackRangeBonus(), 0xffffff, x0 + margin, offset);

@@ -32,7 +32,7 @@ public abstract class Item {
 		return true;
 	}
 
-	public int getDamageBonus() {
+	public int getDamage() {
 		return 0;
 	}
 

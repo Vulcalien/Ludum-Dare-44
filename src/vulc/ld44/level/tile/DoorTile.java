@@ -1,5 +1,6 @@
 package vulc.ld44.level.tile;
 
+import vulc.bitmap.Bitmap;
 import vulc.ld44.animation.DoorAnimation;
 import vulc.ld44.gfx.Atlas;
 import vulc.ld44.gfx.Screen;
@@ -22,13 +23,19 @@ public class DoorTile extends Tile {
 
 	public void render(Screen screen, Level level, int xt, int yt) {
 		Tile.FLOOR.render(screen, level, xt, yt);
-		int tOffset = level.getData(xt, yt) == 0 ? 1 : 0;
+		byte data = level.getData(xt, yt);
+		int tOffset = data == 0 ? 1 : 0;
 
 		Tile underTile = level.getTile(xt, yt + 1);
 		if(underTile != null && underTile.connectsToWall) {
 			screen.renderSprite(Atlas.getTexture(14, 2 + tOffset), xt << T_SIZE, yt << T_SIZE);
 		} else {
 			screen.renderSprite(Atlas.getTexture(13, 2 + tOffset), xt << T_SIZE, yt << T_SIZE);
+		}
+
+		if(level.awakenedEnemies == 0 && level.talkedToShopkeeper && data == 1) {
+			Bitmap arrow = Atlas.getTexture(tickCount / 20 % 2, 7);
+			screen.renderSprite(arrow, xt << T_SIZE, (yt - 1) << T_SIZE);
 		}
 	}
 
