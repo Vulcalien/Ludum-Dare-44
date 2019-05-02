@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Copyright (C) 2019 Vulcalien
- * This code is licenced under MIT Licence (see LICENCE.txt)
+ * This code or part of it is licensed under MIT License by Vulcalien
  ******************************************************************************/
 package vulc.ld44;
 
